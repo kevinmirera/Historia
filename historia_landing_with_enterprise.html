@@ -1,0 +1,476 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--h-cream:#FAFAF7;--h-ink:#1A1916;--h-mist:#F0EFE9;--h-border:rgba(26,25,22,0.1);
+--h-accent:#534AB7;--h-accent-bg:#EEEDFE;--h-accent-text:#3C3489;
+--h-muted:#706F6A;--h-card:#FFFFFF;--h-teal:#0F6E56;--h-teal-bg:#E1F5EE;
+--h-coral:#993C1D;--h-coral-bg:#FAECE7;--h-amber-bg:#FAEEDA;--h-amber:#854F0B;
+--h-green:#0F6E56;--h-green-md:#1D9E75;
+}
+.h-root{font-family:'DM Sans',sans-serif;background:var(--h-cream);color:var(--h-ink);overflow-x:hidden}
+.h-nav{display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:52px;border-bottom:0.5px solid var(--h-border);background:rgba(250,250,247,0.95);position:sticky;top:0;z-index:100;backdrop-filter:blur(8px)}
+.h-logo{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:500;color:var(--h-ink);text-decoration:none}
+.h-logo-mark{width:26px;height:26px;background:var(--h-ink);border-radius:7px;display:flex;align-items:center;justify-content:center}
+.h-logo-mark i{font-size:12px;color:#fff}
+.h-nav-links{display:flex;align-items:center;gap:1.5rem;list-style:none}
+.h-nav-links a{font-size:13px;color:var(--h-muted);text-decoration:none}
+.h-nav-links a:hover{color:var(--h-ink)}
+.h-btn{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:6px 14px;border-radius:7px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;border:0.5px solid var(--h-border);background:transparent;color:var(--h-ink)}
+.h-btn:hover{background:var(--h-mist)}
+.h-btn-primary{background:var(--h-ink);color:#fff;border-color:var(--h-ink)}
+.h-btn-primary:hover{background:#2c2c28}
+.h-btn-accent{background:var(--h-accent);color:#fff;border-color:var(--h-accent);padding:10px 22px;font-size:14px;border-radius:8px}
+.h-btn-accent:hover{background:var(--h-accent-text)}
+.h-btn-green{background:var(--h-teal);color:#fff;border-color:var(--h-teal);padding:10px 22px;font-size:14px;border-radius:8px}
+.h-btn-green:hover{background:var(--h-green-md)}
+.h-hero{padding:4.5rem 2rem 3rem;text-align:center;max-width:720px;margin:0 auto}
+.h-eyebrow{display:inline-flex;align-items:center;gap:6px;background:var(--h-accent-bg);color:var(--h-accent-text);font-size:11px;font-weight:500;padding:4px 12px;border-radius:100px;margin-bottom:1.5rem;letter-spacing:0.02em}
+.h-hero-title{font-family:'DM Serif Display',serif;font-size:50px;font-weight:400;line-height:1.08;letter-spacing:-0.02em;color:var(--h-ink);margin-bottom:1.25rem}
+.h-hero-title em{font-style:italic;color:var(--h-accent)}
+.h-hero-sub{font-size:16px;color:var(--h-muted);line-height:1.65;max-width:480px;margin:0 auto 2rem;font-weight:300}
+.h-hero-actions{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:3rem}
+.h-section{max-width:960px;margin:0 auto;padding:3rem 2rem}
+.h-divider{border:none;border-top:0.5px solid var(--h-border);margin:0 2rem}
+.h-section-label{font-size:11px;color:var(--h-muted);letter-spacing:0.08em;text-transform:uppercase;font-weight:500;margin-bottom:0.5rem}
+.h-section-title{font-family:'DM Serif Display',serif;font-size:32px;font-weight:400;line-height:1.15;letter-spacing:-0.01em;color:var(--h-ink);margin-bottom:0.75rem}
+.h-section-sub{font-size:14px;color:var(--h-muted);line-height:1.6;max-width:480px;font-weight:300;margin-bottom:2.5rem}
+.h-cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--h-border);border:0.5px solid var(--h-border);border-radius:12px;overflow:hidden}
+.h-feat-card{background:var(--h-card);padding:1.25rem;cursor:default}
+.h-feat-card:hover{background:#FAFAF9}
+.h-feat-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:0.75rem;font-size:16px}
+.h-feat-name{font-size:13px;font-weight:500;color:var(--h-ink);margin-bottom:5px}
+.h-feat-desc{font-size:11.5px;color:var(--h-muted);line-height:1.5;font-weight:300}
+.h-layer-section{padding:2.5rem 2rem;max-width:960px;margin:0 auto}
+.h-tag{font-size:11px;padding:3px 9px;border-radius:100px;font-weight:500;border:0.5px solid;display:inline-flex;align-items:center;gap:4px}
+.h-tag-purple{background:var(--h-accent-bg);color:var(--h-accent-text);border-color:rgba(83,74,183,0.2)}
+.h-tag-teal{background:var(--h-teal-bg);color:var(--h-teal);border-color:rgba(15,110,86,0.2)}
+.h-tag-coral{background:var(--h-coral-bg);color:var(--h-coral);border-color:rgba(153,60,29,0.2)}
+.h-tag-amber{background:var(--h-amber-bg);color:var(--h-amber);border-color:rgba(133,79,11,0.2)}
+.h-agent-pill{display:flex;align-items:center;gap:7px;background:var(--h-card);border:0.5px solid var(--h-border);border-radius:7px;padding:7px 10px;font-size:11.5px;font-weight:500;color:var(--h-ink)}
+.h-agent-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.h-memory-node{background:var(--h-accent);border-radius:9px;padding:9px 14px;text-align:center;color:#fff;font-size:12px;font-weight:500;margin:0 auto}
+.h-use-card{background:var(--h-card);border:0.5px solid var(--h-border);border-radius:11px;padding:1.1rem;transition:border-color 0.15s}
+.h-use-card:hover{border-color:rgba(83,74,183,0.35)}
+.h-metrics-section{background:var(--h-ink);padding:3.5rem 2rem}
+.h-metrics-inner{max-width:960px;margin:0 auto}
+.h-metric-cell{background:rgba(255,255,255,0.03);padding:1.1rem 1rem}
+.h-metric-bar{height:3px;background:rgba(255,255,255,0.1);border-radius:2px;margin-top:8px;overflow:hidden}
+.h-metric-fill{height:100%;border-radius:2px;background:var(--h-accent)}
+
+.h-ent-section{background:var(--h-mist);padding:4rem 2rem;border-top:0.5px solid var(--h-border)}
+.h-ent-inner{max-width:960px;margin:0 auto}
+.h-ent-header{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;margin-bottom:2.5rem}
+.h-ent-badge{display:inline-flex;align-items:center;gap:5px;background:var(--h-teal-bg);color:var(--h-teal);border:0.5px solid rgba(15,110,86,0.2);padding:3px 10px;border-radius:100px;font-size:11px;font-weight:500;margin-bottom:0.75rem}
+.h-ent-title{font-family:'DM Serif Display',serif;font-size:32px;font-weight:400;line-height:1.15;color:var(--h-ink);margin-bottom:0.75rem;letter-spacing:-0.01em}
+.h-ent-sub{font-size:14px;color:var(--h-muted);line-height:1.65;font-weight:300;margin-bottom:1.5rem}
+.h-ent-features{display:flex;flex-direction:column;gap:8px}
+.h-ent-feat{display:flex;align-items:flex-start;gap:9px}
+.h-ent-feat-icon{width:20px;height:20px;border-radius:5px;background:var(--h-teal-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.h-ent-feat-icon i{font-size:11px;color:var(--h-teal)}
+.h-ent-feat-text{font-size:13px;color:var(--h-ink);line-height:1.45}
+.h-ent-feat-sub{font-size:11.5px;color:var(--h-muted)}
+.h-ent-preview{background:var(--h-card);border:0.5px solid var(--h-border);border-radius:14px;overflow:hidden}
+.h-ent-preview-top{background:var(--h-teal);padding:12px 16px;display:flex;align-items:center;gap:8px}
+.h-ent-preview-top span{font-size:12px;font-weight:500;color:#fff}
+.h-ent-preview-body{padding:1.25rem}
+.h-ent-metric-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:1rem}
+.h-ent-metric{background:var(--h-mist);border-radius:8px;padding:10px}
+.h-ent-metric-val{font-size:18px;font-weight:500;color:var(--h-ink)}
+.h-ent-metric-label{font-size:10px;color:var(--h-muted);margin-top:2px}
+.h-ent-metric-trend{font-size:10px;color:var(--h-teal);margin-top:3px}
+.h-ent-rec{background:var(--h-mist);border-radius:8px;padding:10px;margin-bottom:8px;display:flex;align-items:flex-start;gap:8px}
+.h-ent-rec:last-child{margin-bottom:0}
+.h-ent-rec-icon{width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.h-ent-rec-title{font-size:11.5px;font-weight:500;color:var(--h-ink);margin-bottom:2px}
+.h-ent-rec-sub{font-size:10.5px;color:var(--h-muted)}
+.h-ent-rec-tag{display:inline-flex;font-size:9.5px;padding:2px 7px;border-radius:100px;font-weight:500;margin-top:4px}
+.h-ent-form-section{padding:3.5rem 2rem;border-top:0.5px solid var(--h-border)}
+.h-ent-form-inner{max-width:960px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.h-form-card{background:var(--h-card);border:0.5px solid var(--h-border);border-radius:14px;padding:1.75rem}
+.h-form-title{font-size:16px;font-weight:500;color:var(--h-ink);margin-bottom:4px}
+.h-form-sub{font-size:13px;color:var(--h-muted);margin-bottom:1.5rem;font-weight:300}
+.h-field{margin-bottom:12px}
+.h-field label{display:block;font-size:12px;font-weight:500;color:var(--h-ink);margin-bottom:5px}
+.h-field input,.h-field select{width:100%;font-family:'DM Sans',sans-serif;font-size:13px;padding:8px 12px;border:0.5px solid var(--h-border);border-radius:7px;background:var(--h-mist);color:var(--h-ink);outline:none}
+.h-field input:focus,.h-field select:focus{border-color:var(--h-teal)}
+.h-field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.h-submit-btn{width:100%;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;padding:11px;border-radius:8px;background:var(--h-teal);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:0.5rem}
+.h-submit-btn:hover{background:var(--h-green-md)}
+.h-trust-items{display:flex;flex-direction:column;gap:0.75rem;padding-top:1rem}
+.h-trust-item{display:flex;align-items:flex-start;gap:10px}
+.h-trust-icon{width:32px;height:32px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:15px}
+.h-trust-name{font-size:13.5px;font-weight:500;color:var(--h-ink);margin-bottom:2px}
+.h-trust-desc{font-size:12px;color:var(--h-muted);line-height:1.4;font-weight:300}
+.h-stack-section{padding:2.5rem 2rem;max-width:960px;margin:0 auto}
+.h-stack-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.h-stack-card{background:var(--h-card);border:0.5px solid var(--h-border);border-radius:11px;padding:1.1rem}
+.h-tech-tag{font-size:10px;padding:3px 7px;background:var(--h-mist);color:var(--h-muted);border-radius:4px}
+.h-cta-section{text-align:center;padding:4rem 2rem;background:var(--h-mist);border-top:0.5px solid var(--h-border)}
+.h-footer{padding:1.25rem 2rem;border-top:0.5px solid var(--h-border);display:flex;align-items:center;justify-content:space-between}
+.h-footer-copy{font-size:12px;color:var(--h-muted)}
+.h-footer-links{display:flex;gap:1.5rem;list-style:none}
+.h-footer-links a{font-size:12px;color:var(--h-muted);text-decoration:none}
+</style>
+
+<h2 class="sr-only">Historia — AI memory layer for the web, consumer and enterprise platform</h2>
+
+<div class="h-root">
+
+<nav class="h-nav">
+  <a href="#" class="h-logo">
+    <div class="h-logo-mark"><i class="ti ti-brain" aria-hidden="true" style="font-size:12px;color:#fff"></i></div>
+    Historia
+  </a>
+  <ul class="h-nav-links">
+    <li><a href="#">Features</a></li>
+    <li><a href="#">Memory Layer</a></li>
+    <li><a href="#enterprise">Enterprise</a></li>
+    <li><a href="#">Docs</a></li>
+    <li><a href="#">Pricing</a></li>
+  </ul>
+  <div style="display:flex;gap:8px;align-items:center">
+    <button class="h-btn">Sign in</button>
+    <button class="h-btn h-btn-primary">Get early access</button>
+  </div>
+</nav>
+
+<section class="h-hero">
+  <div class="h-eyebrow"><i class="ti ti-sparkles" aria-hidden="true" style="font-size:11px"></i> AI Memory Infrastructure</div>
+  <h1 class="h-hero-title">The web, finally<br><em>remembered.</em></h1>
+  <p class="h-hero-sub">Historia is a permissioned memory layer for AI agents and enterprises. Capture, index, and retrieve experiences — by what you remember, not just what you visited.</p>
+  <div class="h-hero-actions">
+    <button class="h-btn-accent" style="font-family:'DM Sans',sans-serif">Start for free <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+    <button class="h-btn" style="font-size:14px;padding:10px 20px">View the docs</button>
+  </div>
+  <div style="display:flex;align-items:center;justify-content:center;gap:1.5rem;flex-wrap:wrap">
+    <span class="h-tag h-tag-teal"><i class="ti ti-shield-check" aria-hidden="true" style="font-size:10px"></i> Local-first privacy</span>
+    <span class="h-tag h-tag-purple"><i class="ti ti-lock" aria-hidden="true" style="font-size:10px"></i> End-to-end encrypted</span>
+    <span class="h-tag h-tag-amber"><i class="ti ti-user" aria-hidden="true" style="font-size:10px"></i> User-owned memory</span>
+  </div>
+</section>
+
+<hr class="h-divider">
+
+<section class="h-section">
+  <p class="h-section-label">Core features</p>
+  <h2 class="h-section-title">Everything memory should be</h2>
+  <p class="h-section-sub">Built on cognitive science and modern AI — for individuals and organizations alike.</p>
+  <div class="h-cards-grid">
+    <div class="h-feat-card">
+      <div class="h-feat-icon" style="background:var(--h-accent-bg)"><i class="ti ti-brain" aria-hidden="true" style="color:var(--h-accent)"></i></div>
+      <div class="h-feat-name">Memory search</div>
+      <div class="h-feat-desc">Find pages by color, layout, or story — not by URL.</div>
+    </div>
+    <div class="h-feat-card">
+      <div class="h-feat-icon" style="background:var(--h-teal-bg)"><i class="ti ti-topology-star" aria-hidden="true" style="color:var(--h-teal)"></i></div>
+      <div class="h-feat-name">AI memory layer</div>
+      <div class="h-feat-desc">Shared permissioned memory for every AI agent.</div>
+    </div>
+    <div class="h-feat-card">
+      <div class="h-feat-icon" style="background:var(--h-coral-bg)"><i class="ti ti-palette" aria-hidden="true" style="color:var(--h-coral)"></i></div>
+      <div class="h-feat-name">Design DNA</div>
+      <div class="h-feat-desc">AI learns your visual taste and generates matching UIs.</div>
+    </div>
+    <div class="h-feat-card">
+      <div class="h-feat-icon" style="background:var(--h-amber-bg)"><i class="ti ti-chart-dots" aria-hidden="true" style="color:var(--h-amber)"></i></div>
+      <div class="h-feat-name">Memory analytics</div>
+      <div class="h-feat-desc">Memory Score, Brand Recall, First Impression metrics.</div>
+    </div>
+    <div class="h-feat-card">
+      <div class="h-feat-icon" style="background:var(--h-accent-bg)"><i class="ti ti-plug-connected" aria-hidden="true" style="color:var(--h-accent)"></i></div>
+      <div class="h-feat-name">Developer platform</div>
+      <div class="h-feat-desc">Memory APIs, SDKs, and Context Objects for any AI agent.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="h-divider">
+
+<section class="h-layer-section">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center">
+    <div>
+      <p class="h-section-label">Architecture</p>
+      <h2 class="h-section-title" style="font-size:26px">One memory layer.<br>Every AI talks to it.</h2>
+      <p class="h-section-sub" style="font-size:13px;margin-bottom:1.25rem">Instead of every AI maintaining isolated memory, Historia is the shared substrate — permissioned, encrypted, and owned by the user.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:6px">
+        <span class="h-tag h-tag-teal">Permission-based</span>
+        <span class="h-tag h-tag-purple">Encrypted at rest</span>
+        <span class="h-tag h-tag-coral">User-owned</span>
+        <span class="h-tag h-tag-amber">Local-first</span>
+      </div>
+    </div>
+    <div style="background:var(--h-card);border:0.5px solid var(--h-border);border-radius:13px;padding:1.25rem">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:4px">
+        <div class="h-agent-pill"><div class="h-agent-dot" style="background:#5DCAA5"></div>Doctor AI</div>
+        <div class="h-agent-pill"><div class="h-agent-dot" style="background:#7F77DD"></div>Finance AI</div>
+        <div class="h-agent-pill"><div class="h-agent-dot" style="background:#F0997B"></div>Travel AI</div>
+        <div class="h-agent-pill"><div class="h-agent-dot" style="background:#FAC775"></div>Food AI</div>
+      </div>
+      <div style="width:1px;height:12px;background:var(--h-border);margin:3px auto"></div>
+      <div style="font-size:9.5px;color:var(--h-muted);text-align:center;margin:2px 0">permissioned access</div>
+      <div style="width:1px;height:12px;background:var(--h-border);margin:3px auto"></div>
+      <div class="h-memory-node" style="width:110px"><i class="ti ti-brain" aria-hidden="true" style="font-size:12px;margin-right:4px"></i>Memory Layer</div>
+      <div style="width:1px;height:12px;background:var(--h-border);margin:3px auto"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:4px">
+        <div class="h-agent-pill"><div class="h-agent-dot" style="background:#85B7EB"></div>Education AI</div>
+        <div class="h-agent-pill"><div class="h-agent-dot" style="background:#97C459"></div>Work AI</div>
+        <div class="h-agent-pill"><div class="h-agent-dot" style="background:#ED93B1"></div>Shopping AI</div>
+        <div class="h-agent-pill"><div class="h-agent-dot" style="background:#AFA9EC"></div>Health AI</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="h-divider">
+
+<section class="h-metrics-section">
+  <div class="h-metrics-inner">
+    <p style="font-size:10px;color:rgba(255,255,255,0.4);letter-spacing:0.08em;text-transform:uppercase;font-weight:500;margin-bottom:0.4rem">Memory analytics</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:28px;font-weight:400;color:#fff;margin-bottom:0.4rem;letter-spacing:-0.01em">New metrics for the memory economy</h2>
+    <p style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:2rem;font-weight:300">Replace bounce rate with measurements that predict whether users will return.</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.08);border:0.5px solid rgba(255,255,255,0.08);border-radius:10px;overflow:hidden">
+      <div class="h-metric-cell">
+        <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-bottom:4px;font-weight:500">01</div>
+        <div style="font-size:14px;font-weight:500;color:#fff;margin-bottom:3px">Memory score</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.4);font-weight:300">Overall recall probability after 24h</div>
+        <div class="h-metric-bar"><div class="h-metric-fill" style="width:82%"></div></div>
+      </div>
+      <div class="h-metric-cell">
+        <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-bottom:4px;font-weight:500">02</div>
+        <div style="font-size:14px;font-weight:500;color:#fff;margin-bottom:3px">Brand recall</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.4);font-weight:300">Logo and name recall without prompting</div>
+        <div class="h-metric-bar"><div class="h-metric-fill" style="width:67%;background:#5DCAA5"></div></div>
+      </div>
+      <div class="h-metric-cell">
+        <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-bottom:4px;font-weight:500">03</div>
+        <div style="font-size:14px;font-weight:500;color:#fff;margin-bottom:3px">First impression</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.4);font-weight:300">Described after 3-second exposure</div>
+        <div class="h-metric-bar"><div class="h-metric-fill" style="width:74%;background:#F0997B"></div></div>
+      </div>
+      <div class="h-metric-cell">
+        <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-bottom:4px;font-weight:500">04</div>
+        <div style="font-size:14px;font-weight:500;color:#fff;margin-bottom:3px">Knowledge retention</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.4);font-weight:300">Key content recalled after 7 days</div>
+        <div class="h-metric-bar"><div class="h-metric-fill" style="width:55%;background:#FAC775"></div></div>
+      </div>
+      <div class="h-metric-cell">
+        <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-bottom:4px;font-weight:500">05</div>
+        <div style="font-size:14px;font-weight:500;color:#fff;margin-bottom:3px">Emotional recall</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.4);font-weight:300">Sentiment attached to the visit</div>
+        <div class="h-metric-bar"><div class="h-metric-fill" style="width:91%;background:#ED93B1"></div></div>
+      </div>
+      <div class="h-metric-cell">
+        <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-bottom:4px;font-weight:500">06</div>
+        <div style="font-size:14px;font-weight:500;color:#fff;margin-bottom:3px">Long-term recall</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.4);font-weight:300">Accessible after 30 days without revisit</div>
+        <div class="h-metric-bar"><div class="h-metric-fill" style="width:43%;background:#85B7EB"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="h-ent-section" id="enterprise">
+  <div class="h-ent-inner">
+    <div style="text-align:center;margin-bottom:2.5rem">
+      <div class="h-ent-badge"><i class="ti ti-building" aria-hidden="true" style="font-size:10px"></i> Historia Enterprise</div>
+      <h2 style="font-family:'DM Serif Display',serif;font-size:36px;font-weight:400;color:var(--h-ink);letter-spacing:-0.02em;margin-bottom:0.75rem">The memory OS for organizations</h2>
+      <p style="font-size:15px;color:var(--h-muted);font-weight:300;max-width:520px;margin:0 auto">Historia Enterprise turns every meeting, document, sales call, and employee interaction into searchable organizational memory — powered by AI agents built on what your business actually knows.</p>
+    </div>
+
+    <div class="h-ent-header">
+      <div>
+        <div class="h-ent-features">
+          <div class="h-ent-feat">
+            <div class="h-ent-feat-icon"><i class="ti ti-robot" aria-hidden="true"></i></div>
+            <div>
+              <div class="h-ent-feat-text">AI agent studio with wizard-based creation</div>
+              <div class="h-ent-feat-sub">Build Customer Support, Sales Coach, HR, Finance, and domain AIs in minutes.</div>
+            </div>
+          </div>
+          <div class="h-ent-feat">
+            <div class="h-ent-feat-icon"><i class="ti ti-video" aria-hidden="true"></i></div>
+            <div>
+              <div class="h-ent-feat-text">Meeting memory and video intelligence</div>
+              <div class="h-ent-feat-sub">Every call transcribed, chaptered, and linked to decisions, tasks, and people.</div>
+            </div>
+          </div>
+          <div class="h-ent-feat">
+            <div class="h-ent-feat-icon"><i class="ti ti-topology-star" aria-hidden="true"></i></div>
+            <div>
+              <div class="h-ent-feat-text">Organization-wide memory graph</div>
+              <div class="h-ent-feat-sub">Ask "who knows Kubernetes?" or "when did we discuss Atlas?" instantly.</div>
+            </div>
+          </div>
+          <div class="h-ent-feat">
+            <div class="h-ent-feat-icon"><i class="ti ti-world" aria-hidden="true"></i></div>
+            <div>
+              <div class="h-ent-feat-text">Website AI and memory analytics</div>
+              <div class="h-ent-feat-sub">AI continuously recommends improvements based on what users actually remember.</div>
+            </div>
+          </div>
+          <div class="h-ent-feat">
+            <div class="h-ent-feat-icon"><i class="ti ti-store" aria-hidden="true"></i></div>
+            <div>
+              <div class="h-ent-feat-text">White-label AI marketplace</div>
+              <div class="h-ent-feat-sub">Deploy branded AI agents to customers, partners, and employees via your own marketplace.</div>
+            </div>
+          </div>
+          <div class="h-ent-feat">
+            <div class="h-ent-feat-icon"><i class="ti ti-lock" aria-hidden="true"></i></div>
+            <div>
+              <div class="h-ent-feat-text">Enterprise-grade privacy and SSO</div>
+              <div class="h-ent-feat-sub">SOC 2, GDPR, HIPAA-ready. Self-hosted or cloud. End-to-end encryption.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="h-ent-preview">
+        <div class="h-ent-preview-top">
+          <div style="width:22px;height:22px;background:rgba(255,255,255,0.2);border-radius:5px;display:flex;align-items:center;justify-content:center"><i class="ti ti-brain" aria-hidden="true" style="font-size:11px;color:#fff"></i></div>
+          <span>Historia Enterprise · Historia Inc.</span>
+          <span style="margin-left:auto;font-size:10px;opacity:0.7">Dashboard preview</span>
+        </div>
+        <div class="h-ent-preview-body">
+          <div style="font-size:14px;font-weight:500;color:var(--h-ink);margin-bottom:12px">Good morning, Kevin! <span style="font-size:12px;font-weight:400;color:var(--h-muted)">Here's what's happening at Historia Inc.</span></div>
+          <div class="h-ent-metric-row">
+            <div class="h-ent-metric">
+              <div class="h-ent-metric-val">92</div>
+              <div class="h-ent-metric-label">Memory score</div>
+              <div class="h-ent-metric-trend"><i class="ti ti-trending-up" aria-hidden="true" style="font-size:10px"></i> 12% vs last month</div>
+            </div>
+            <div class="h-ent-metric">
+              <div class="h-ent-metric-val">48</div>
+              <div class="h-ent-metric-label">Active employees</div>
+              <div class="h-ent-metric-trend"><i class="ti ti-trending-up" aria-hidden="true" style="font-size:10px"></i> 15% this month</div>
+            </div>
+            <div class="h-ent-metric">
+              <div class="h-ent-metric-val">12</div>
+              <div class="h-ent-metric-label">AI agents live</div>
+              <div class="h-ent-metric-trend"><i class="ti ti-trending-up" aria-hidden="true" style="font-size:10px"></i> 3 new this month</div>
+            </div>
+          </div>
+          <div style="font-size:11px;font-weight:500;color:var(--h-ink);margin-bottom:7px;display:flex;align-items:center;gap:5px"><i class="ti ti-sparkles" aria-hidden="true" style="color:var(--h-teal);font-size:12px"></i> AI recommendations</div>
+          <div class="h-ent-rec">
+            <div class="h-ent-rec-icon" style="background:var(--h-teal-bg)"><i class="ti ti-run" aria-hidden="true" style="color:var(--h-teal)"></i></div>
+            <div>
+              <div class="h-ent-rec-title">Users remember athlete stories 3× more than product specs</div>
+              <div class="h-ent-rec-sub">Build a Running Recovery AI to capture this intent.</div>
+              <div class="h-ent-rec-tag" style="background:var(--h-teal-bg);color:var(--h-teal)">+27% engagement · 94% confidence</div>
+            </div>
+          </div>
+          <div class="h-ent-rec">
+            <div class="h-ent-rec-icon" style="background:var(--h-accent-bg)"><i class="ti ti-world" aria-hidden="true" style="color:var(--h-accent)"></i></div>
+            <div>
+              <div class="h-ent-rec-title">Homepage hero has only 12% recall vs 84% for stories</div>
+              <div class="h-ent-rec-sub">Improve homepage hero image with athlete content.</div>
+              <div class="h-ent-rec-tag" style="background:var(--h-accent-bg);color:var(--h-accent)">+19% recall · Preview changes</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:7px;padding:8px 10px;background:var(--h-mist);border-radius:7px;margin-top:8px">
+            <i class="ti ti-sparkles" aria-hidden="true" style="font-size:12px;color:var(--h-teal)"></i>
+            <span style="font-size:11px;color:var(--h-muted)">Ask Historia AI — what did we decide last week?</span>
+            <div style="width:22px;height:22px;background:var(--h-teal);border-radius:5px;display:flex;align-items:center;justify-content:center;margin-left:auto;cursor:pointer"><i class="ti ti-arrow-right" aria-hidden="true" style="font-size:11px;color:#fff"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="border-top:0.5px solid var(--h-border);padding-top:2rem">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+        <div style="background:var(--h-card);border:0.5px solid var(--h-border);border-radius:10px;padding:1.1rem;text-align:center">
+          <div style="font-size:24px;font-weight:500;color:var(--h-teal);margin-bottom:4px">327</div>
+          <div style="font-size:11px;color:var(--h-muted)">Meetings indexed</div>
+        </div>
+        <div style="background:var(--h-card);border:0.5px solid var(--h-border);border-radius:10px;padding:1.1rem;text-align:center">
+          <div style="font-size:24px;font-weight:500;color:var(--h-accent);margin-bottom:4px">1,248</div>
+          <div style="font-size:11px;color:var(--h-muted)">Knowledge items</div>
+        </div>
+        <div style="background:var(--h-card);border:0.5px solid var(--h-border);border-radius:10px;padding:1.1rem;text-align:center">
+          <div style="font-size:24px;font-weight:500;color:var(--h-amber);margin-bottom:4px">84</div>
+          <div style="font-size:11px;color:var(--h-muted)">Customers in memory</div>
+        </div>
+        <div style="background:var(--h-card);border:0.5px solid var(--h-border);border-radius:10px;padding:1.1rem;text-align:center">
+          <div style="font-size:24px;font-weight:500;color:var(--h-coral);margin-bottom:4px">92%</div>
+          <div style="font-size:11px;color:var(--h-muted)">Company memory score</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="h-ent-form-section">
+  <div class="h-ent-form-inner">
+    <div>
+      <div class="h-ent-badge" style="margin-bottom:0.75rem"><i class="ti ti-lock" aria-hidden="true" style="font-size:10px"></i> Enterprise access</div>
+      <h2 style="font-family:'DM Serif Display',serif;font-size:28px;font-weight:400;color:var(--h-ink);margin-bottom:0.75rem;letter-spacing:-0.01em">Request enterprise access</h2>
+      <p style="font-size:13px;color:var(--h-muted);line-height:1.65;font-weight:300;margin-bottom:1.5rem">Our team will reach out within 24 hours with a custom demo tailored to your organization's use case.</p>
+      <div class="h-trust-items">
+        <div class="h-trust-item">
+          <div class="h-trust-icon" style="background:var(--h-teal-bg)"><i class="ti ti-users" aria-hidden="true" style="color:var(--h-teal);font-size:14px"></i></div>
+          <div><div class="h-trust-name">Dedicated onboarding</div><div class="h-trust-desc">A dedicated success manager sets up your memory layer, agents, and integrations.</div></div>
+        </div>
+        <div class="h-trust-item">
+          <div class="h-trust-icon" style="background:var(--h-accent-bg)"><i class="ti ti-server" aria-hidden="true" style="color:var(--h-accent);font-size:14px"></i></div>
+          <div><div class="h-trust-name">Self-hosted or cloud</div><div class="h-trust-desc">Run entirely on your own infrastructure or our SOC 2-certified cloud.</div></div>
+        </div>
+        <div class="h-trust-item">
+          <div class="h-trust-icon" style="background:var(--h-amber-bg)"><i class="ti ti-plug" aria-hidden="true" style="color:var(--h-amber);font-size:14px"></i></div>
+          <div><div class="h-trust-name">Custom integrations</div><div class="h-trust-desc">Slack, Google Workspace, Salesforce, SAP, and custom enterprise APIs.</div></div>
+        </div>
+        <div class="h-trust-item">
+          <div class="h-trust-icon" style="background:var(--h-coral-bg)"><i class="ti ti-shield-check" aria-hidden="true" style="color:var(--h-coral);font-size:14px"></i></div>
+          <div><div class="h-trust-name">Enterprise SLA and compliance</div><div class="h-trust-desc">GDPR, HIPAA, SOC 2 Type II. Custom DPA and 99.9% uptime guarantee.</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="h-form-card">
+      <div class="h-form-title">Get a custom demo</div>
+      <div class="h-form-sub">Tell us about your organization and we'll show you Historia in action.</div>
+      <div class="h-field-row">
+        <div class="h-field"><label>First name</label><input type="text" placeholder="Kevin"></div>
+        <div class="h-field"><label>Last name</label><input type="text" placeholder="Mirera"></div>
+      </div>
+      <div class="h-field"><label>Work email</label><input type="email" placeholder="kevin@company.com"></div>
+      <div class="h-field"><label>Company name</label><input type="text" placeholder="Historia Inc."></div>
+      <div class="h-field-row">
+        <div class="h-field"><label>Company size</label><select><option>1–10</option><option>11–50</option><option selected>51–200</option><option>201–1,000</option><option>1,000+</option></select></div>
+        <div class="h-field"><label>Primary use case</label><select><option>Org memory OS</option><option>AI agents</option><option>Meeting memory</option><option>Website AI</option><option>Marketplace</option></select></div>
+      </div>
+      <div class="h-field"><label>What are you trying to solve?</label><input type="text" placeholder="We need AI agents that know our business…"></div>
+      <button class="h-submit-btn" onclick="sendPrompt('Tell me more about Historia Enterprise pricing and what a custom demo would look like for a 51–200 person company.')">
+        <i class="ti ti-sparkles" aria-hidden="true"></i>
+        Request enterprise demo ↗
+      </button>
+      <p style="font-size:11px;color:var(--h-muted);text-align:center;margin-top:10px">No commitment. Response within 24 hours.</p>
+    </div>
+  </div>
+</section>
+
+<div class="h-cta-section">
+  <div style="display:inline-flex;align-items:center;gap:5px;background:var(--h-teal-bg);color:var(--h-teal);border:0.5px solid rgba(15,110,86,0.2);padding:3px 10px;border-radius:100px;font-size:11px;font-weight:500;margin-bottom:0.75rem">
+    <i class="ti ti-mail" aria-hidden="true" style="font-size:10px"></i> Early access open
+  </div>
+  <h2 style="font-family:'DM Serif Display',serif;font-size:36px;font-weight:400;color:var(--h-ink);letter-spacing:-0.02em;margin-bottom:0.75rem;line-height:1.1">Memory is the next<br>computing primitive.</h2>
+  <p style="font-size:14px;color:var(--h-muted);margin-bottom:2rem;font-weight:300;max-width:360px;margin-left:auto;margin-right:auto;margin-bottom:2rem">Join the waitlist for the developer beta and be among the first to build on the memory layer.</p>
+  <div style="display:flex;align-items:center;gap:8px;max-width:360px;margin:0 auto">
+    <input type="email" placeholder="you@company.com" style="flex:1;font-family:'DM Sans',sans-serif;font-size:13px;padding:10px 14px;border:0.5px solid var(--h-border);border-radius:8px;background:var(--h-card);color:var(--h-ink);outline:none">
+    <button class="h-btn-accent" style="font-family:'DM Sans',sans-serif;white-space:nowrap">Request access</button>
+  </div>
+  <p style="font-size:11px;color:var(--h-muted);margin-top:1rem">Local-first by default. No browsing data leaves your device without consent.</p>
+</div>
+
+<footer class="h-footer">
+  <span class="h-footer-copy">© 2026 Historia · We make memories.</span>
+  <ul class="h-footer-links">
+    <li><a href="#">Privacy</a></li>
+    <li><a href="#">Enterprise</a></li>
+    <li><a href="#">Docs</a></li>
+    <li><a href="#">GitHub</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+</footer>
+
+</div>
