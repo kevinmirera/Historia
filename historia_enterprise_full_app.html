@@ -1,0 +1,829 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Serif+Display&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--g:#0F6E56;--glt:#E1F5EE;--gmd:#1D9E75;
+--ink:#1A1916;--mu:#706F6A;--br:rgba(26,25,22,0.09);
+--card:#fff;--page:#F7F7F4;--side:#FAFAF8;
+--pu:#534AB7;--pult:#EEEDFE;
+--am:#854F0B;--amlt:#FAEEDA;
+--co:#993C1D;--colt:#FAECE7;
+--bl:#185FA5;--bllt:#E6F1FB;
+}
+.app{font-family:'DM Sans',sans-serif;background:var(--page);color:var(--ink);display:grid;grid-template-columns:196px 1fr;grid-template-rows:48px 1fr;height:860px;overflow:hidden;border:0.5px solid var(--br);border-radius:12px}
+.topbar{grid-column:1/-1;display:flex;align-items:center;gap:10px;padding:0 14px;background:var(--card);border-bottom:0.5px solid var(--br);z-index:10}
+.logo{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:500;color:var(--ink);width:174px;flex-shrink:0}
+.lmark{width:24px;height:24px;background:var(--g);border-radius:6px;display:flex;align-items:center;justify-content:center}
+.lmark i{font-size:12px;color:#fff}
+.ebadge{font-size:9px;font-weight:500;background:var(--glt);color:var(--g);padding:2px 7px;border-radius:100px}
+.tsearch{flex:1;display:flex;align-items:center;gap:7px;background:var(--page);border:0.5px solid var(--br);border-radius:7px;padding:0 10px;height:28px;max-width:380px}
+.tsearch i{color:var(--mu);font-size:13px}
+.tsearch span{font-size:12px;color:var(--mu);flex:1}
+.tsearch kbd{font-size:9px;color:var(--mu);background:var(--card);border:0.5px solid var(--br);padding:1px 5px;border-radius:3px}
+.tright{display:flex;align-items:center;gap:8px;margin-left:auto}
+.tbtn{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;padding:4px 10px;border-radius:5px;cursor:pointer;border:0.5px solid var(--br);background:transparent;color:var(--ink);display:flex;align-items:center;gap:4px}
+.tbtn:hover{background:var(--page)}
+.tbtn.green{background:var(--g);color:#fff;border-color:var(--g)}
+.tbtn.green:hover{background:var(--gmd)}
+.av{width:26px;height:26px;border-radius:50%;background:var(--glt);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;color:var(--g)}
+.sidebar{background:var(--side);border-right:0.5px solid var(--br);display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden}
+.orgrow{display:flex;align-items:center;gap:7px;padding:8px 10px;border-bottom:0.5px solid var(--br);cursor:pointer}
+.orgrow:hover{background:rgba(15,110,86,0.04)}
+.orgav{width:22px;height:22px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;color:#fff;flex-shrink:0}
+.orgname{font-size:11.5px;font-weight:500;color:var(--ink)}
+.orgplan{font-size:10px;color:var(--mu)}
+.nlabel{font-size:9.5px;font-weight:500;color:var(--mu);letter-spacing:.07em;text-transform:uppercase;padding:10px 10px 3px}
+.ni{display:flex;align-items:center;gap:8px;padding:5px 10px;font-size:12px;color:var(--mu);cursor:pointer;transition:background .1s;white-space:nowrap}
+.ni:hover{background:rgba(15,110,86,0.05);color:var(--ink)}
+.ni.act{background:var(--glt);color:var(--g);font-weight:500;border-radius:0}
+.ni i{font-size:14px;width:15px;text-align:center;flex-shrink:0}
+.nbadge{font-size:9px;font-weight:500;padding:1px 5px;border-radius:100px;margin-left:auto}
+.nbadge.green{background:var(--glt);color:var(--g)}
+.nbadge.new{background:var(--pult);color:var(--pu)}
+.sfooter{margin-top:auto;padding:8px 10px;border-top:0.5px solid var(--br)}
+.membar{height:3px;background:var(--br);border-radius:2px;margin:5px 0 7px;overflow:hidden}
+.memfill{height:100%;background:var(--g);border-radius:2px;width:72%}
+.main{overflow-y:auto;display:flex;flex-direction:column}
+.view{display:none;flex-direction:column;flex:1;padding:16px}
+.view.show{display:flex}
+
+.greeting{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px}
+.greeting h1{font-size:20px;font-weight:500;color:var(--ink);margin-bottom:2px}
+.greeting p{font-size:12px;color:var(--mu);font-weight:300}
+.qas{display:flex;gap:5px;flex-wrap:wrap}
+.qab{display:flex;align-items:center;gap:5px;padding:5px 10px;background:var(--card);border:0.5px solid var(--br);border-radius:6px;font-size:11px;font-weight:500;color:var(--ink);cursor:pointer;white-space:nowrap}
+.qab i{font-size:13px}
+.qab.g{background:var(--g);color:#fff;border-color:var(--g)}
+.mrow{display:grid;gap:8px;margin-bottom:12px}
+.mrow.c4{grid-template-columns:repeat(4,1fr)}
+.mrow.c3{grid-template-columns:repeat(3,1fr)}
+.mrow.c2{grid-template-columns:1fr 1fr}
+.mc{background:var(--card);border:0.5px solid var(--br);border-radius:9px;padding:12px}
+.mlabel{font-size:10px;color:var(--mu);margin-bottom:5px}
+.mval{font-size:20px;font-weight:500;color:var(--ink);margin-bottom:2px}
+.mtrend{font-size:10px;display:flex;align-items:center;gap:2px}
+.up{color:var(--g)}.dn{color:var(--co)}
+.spark{height:24px;margin-top:6px}
+.card{background:var(--card);border:0.5px solid var(--br);border-radius:10px;padding:13px}
+.ch{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.ctitle{font-size:12.5px;font-weight:500;color:var(--ink)}
+.cact{font-size:11px;color:var(--g);cursor:pointer;font-weight:500}
+.tag{display:inline-flex;align-items:center;gap:3px;font-size:10px;padding:2px 7px;border-radius:100px;font-weight:500;border:0.5px solid}
+.tg{background:var(--glt);color:var(--g);border-color:rgba(15,110,86,.2)}
+.tp{background:var(--pult);color:var(--pu);border-color:rgba(83,74,183,.2)}
+.ta{background:var(--amlt);color:var(--am);border-color:rgba(133,79,11,.2)}
+.tc{background:var(--colt);color:var(--co);border-color:rgba(153,60,29,.2)}
+.tb{background:var(--bllt);color:var(--bl);border-color:rgba(24,95,165,.2)}
+.row{display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:0.5px solid var(--br)}
+.row:last-child{border-bottom:none}
+.ic{width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.rname{font-size:12px;font-weight:500;color:var(--ink);margin-bottom:1px}
+.rsub{font-size:10.5px;color:var(--mu)}
+.abtn{font-family:'DM Sans',sans-serif;font-size:10px;padding:2px 7px;border-radius:4px;cursor:pointer;border:0.5px solid var(--br);background:transparent;color:var(--ink)}
+.abtn.p{background:var(--g);color:#fff;border-color:var(--g)}
+.abtn.pu{background:var(--pu);color:#fff;border-color:var(--pu)}
+.sdot{width:6px;height:6px;border-radius:50%;background:var(--g);margin-left:auto;flex-shrink:0;margin-top:4px}
+.ai-bar{background:var(--card);border:0.5px solid var(--br);border-radius:9px;padding:9px 12px;display:flex;align-items:center;gap:8px;margin-top:auto}
+.ai-bar i.icon{font-size:13px;color:var(--g)}
+.ai-bar span{font-size:12px;color:var(--mu);flex:1}
+.chips{display:flex;gap:5px;flex-wrap:wrap}
+.chip{font-size:10.5px;padding:3px 8px;background:var(--page);border:0.5px solid var(--br);border-radius:5px;color:var(--ink);cursor:pointer;white-space:nowrap}
+.chip:hover{background:var(--glt);color:var(--g)}
+.sendbtn{width:26px;height:26px;background:var(--g);border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;flex-shrink:0}
+.sendbtn i{font-size:12px;color:#fff}
+
+.wizard-steps{display:flex;gap:0;margin-bottom:16px;background:var(--card);border:0.5px solid var(--br);border-radius:8px;overflow:hidden}
+.ws{flex:1;text-align:center;padding:8px 4px;font-size:10.5px;color:var(--mu);border-right:0.5px solid var(--br);cursor:pointer}
+.ws:last-child{border-right:none}
+.ws.act{background:var(--glt);color:var(--g);font-weight:500}
+.ws.done{color:var(--g)}
+.agent-type-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:12px}
+.atcard{background:var(--card);border:0.5px solid var(--br);border-radius:8px;padding:10px;cursor:pointer;text-align:center;transition:border-color .15s}
+.atcard:hover,.atcard.sel{border-color:var(--g)}
+.atcard.sel{background:var(--glt)}
+.atcard i{font-size:18px;margin-bottom:5px;display:block}
+.atcard .name{font-size:11px;font-weight:500;color:var(--ink)}
+.upload-zone{border:1px dashed var(--g);border-radius:9px;padding:20px;text-align:center;background:var(--glt);margin-bottom:10px;cursor:pointer}
+.upload-zone i{font-size:22px;color:var(--g);margin-bottom:6px;display:block}
+.upload-zone p{font-size:11px;color:var(--g);font-weight:500;margin-bottom:3px}
+.upload-zone span{font-size:10px;color:var(--mu)}
+.file-types{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px}
+.ft{font-size:10px;padding:2px 7px;background:var(--page);border:0.5px solid var(--br);border-radius:4px;color:var(--mu)}
+.perm-card{background:var(--card);border:0.5px solid var(--br);border-radius:8px;padding:10px;margin-bottom:7px;display:flex;align-items:flex-start;gap:10px}
+.perm-tog{width:28px;height:16px;background:var(--g);border-radius:100px;display:flex;align-items:center;padding:2px;flex-shrink:0;margin-top:2px}
+.perm-tog-off{width:28px;height:16px;background:var(--br);border-radius:100px;display:flex;align-items:center;padding:2px;flex-shrink:0;margin-top:2px;background:#D3D1C7}
+.ptknob{width:12px;height:12px;border-radius:50%;background:#fff;margin-left:auto}
+.ptknob-off{width:12px;height:12px;border-radius:50%;background:#fff}
+.perm-name{font-size:12px;font-weight:500;color:var(--ink);margin-bottom:2px}
+.perm-why{font-size:10.5px;color:var(--mu);line-height:1.4}
+.trust-score{background:var(--glt);border:0.5px solid rgba(15,110,86,.2);border-radius:8px;padding:10px;display:flex;align-items:center;gap:10px;margin-top:8px}
+
+.meeting-layout{display:grid;grid-template-columns:1fr 260px;gap:10px;flex:1}
+.video-box{background:#1A1916;border-radius:9px;overflow:hidden;position:relative;aspect-ratio:16/9}
+.video-box .rec{position:absolute;top:10px;left:10px;display:flex;align-items:center;gap:5px;background:rgba(226,75,74,.9);padding:3px 8px;border-radius:4px}
+.video-box .rec i{font-size:11px;color:#fff}
+.video-box .rec span{font-size:10px;color:#fff;font-weight:500}
+.video-box .timer{position:absolute;top:10px;right:10px;font-size:11px;color:#fff;font-weight:500}
+.video-controls{display:flex;align-items:center;justify-content:center;gap:12px;padding:8px 0}
+.vc{width:30px;height:30px;border-radius:50%;background:var(--page);border:0.5px solid var(--br);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.vc i{font-size:14px;color:var(--ink)}
+.vc.end{background:#E24B4A;border-color:#E24B4A}
+.vc.end i{color:#fff}
+.moments-row{display:flex;gap:6px;overflow-x:auto;padding:2px 0;margin-bottom:8px}
+.moment{flex-shrink:0;width:90px;background:var(--card);border:0.5px solid var(--br);border-radius:6px;overflow:hidden;cursor:pointer}
+.moment-thumb{height:44px;background:#2C2C2A;display:flex;align-items:center;justify-content:center;position:relative}
+.moment-thumb span{font-size:9px;color:rgba(255,255,255,.7);position:absolute;bottom:3px;right:4px}
+.moment-label{padding:4px 5px}
+.moment-title{font-size:10px;font-weight:500;color:var(--ink);margin-bottom:1px}
+.moment-tag{font-size:9px;color:var(--mu)}
+
+.sales-score-ring{width:64px;height:64px;flex-shrink:0}
+.metric-bar-row{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.metric-bar-label{font-size:11px;color:var(--ink);width:100px;flex-shrink:0}
+.metric-bar-track{flex:1;height:5px;background:var(--br);border-radius:3px;overflow:hidden}
+.metric-bar-fill{height:100%;border-radius:3px}
+.metric-bar-val{font-size:11px;font-weight:500;color:var(--ink);width:28px;text-align:right;flex-shrink:0}
+.phrase-row{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:0.5px solid var(--br)}
+.phrase-row:last-child{border-bottom:none}
+
+.kb-node{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:7px;font-size:11px;font-weight:500;cursor:pointer;margin:3px;border:0.5px solid}
+.kb-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.kb-card{background:var(--card);border:0.5px solid var(--br);border-radius:8px;padding:10px;cursor:pointer;transition:border-color .15s}
+.kb-card:hover{border-color:var(--g)}
+.kb-count{font-size:18px;font-weight:500;color:var(--ink);margin-bottom:2px}
+.kb-name{font-size:11px;color:var(--mu)}
+
+.cust-card{background:var(--card);border:0.5px solid var(--br);border-radius:9px;padding:13px;margin-bottom:8px}
+.prog-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.prog-label{font-size:11px;color:var(--ink);flex:1}
+.prog-track{width:80px;height:4px;background:var(--br);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;border-radius:2px;background:var(--g)}
+.prog-val{font-size:11px;font-weight:500;color:var(--g);width:28px;text-align:right}
+
+.web-rec{background:var(--card);border:0.5px solid var(--br);border-radius:8px;padding:11px;margin-bottom:8px}
+.web-rec-pct{font-size:22px;font-weight:500;margin-bottom:2px}
+.web-rec-title{font-size:12.5px;font-weight:500;color:var(--ink);margin-bottom:3px}
+.web-rec-sub{font-size:11px;color:var(--mu);margin-bottom:8px}
+.web-actions{display:flex;gap:5px}
+
+.mkt-chat{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.msg-user{align-self:flex-end;background:var(--g);color:#fff;font-size:12px;padding:8px 12px;border-radius:10px 10px 2px 10px;max-width:80%}
+.msg-ai{align-self:flex-start;background:var(--card);border:0.5px solid var(--br);font-size:12px;padding:8px 12px;border-radius:10px 10px 10px 2px;max-width:90%}
+.prod-carousel{display:flex;gap:7px;overflow-x:auto;padding:4px 0}
+.prod-card{flex-shrink:0;width:100px;background:var(--page);border:0.5px solid var(--br);border-radius:7px;padding:8px;text-align:center}
+.prod-icon{width:40px;height:40px;border-radius:6px;background:var(--glt);margin:0 auto 5px;display:flex;align-items:center;justify-content:center}
+.prod-name{font-size:10px;font-weight:500;color:var(--ink);margin-bottom:2px}
+.prod-price{font-size:10px;color:var(--mu)}
+
+.vid-list .vrow{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:0.5px solid var(--br)}
+.vid-list .vrow:last-child{border-bottom:none}
+.vthumb{width:64px;height:40px;border-radius:5px;background:#2C2C2A;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.vthumb i{font-size:14px;color:rgba(255,255,255,.6)}
+.vdur{font-size:9px;color:rgba(255,255,255,.5);margin-top:2px;text-align:center}
+</style>
+
+<h2 class="sr-only">Historia Enterprise — full interactive dashboard with all sidebar sections</h2>
+
+<div class="app">
+
+<div class="topbar">
+  <div class="logo">
+    <div class="lmark"><i class="ti ti-brain" aria-hidden="true"></i></div>
+    Historia
+    <span class="ebadge">Enterprise</span>
+  </div>
+  <div class="tsearch">
+    <i class="ti ti-search" aria-hidden="true"></i>
+    <span id="search-placeholder">Search memories, people, projects…</span>
+    <kbd>⌘K</kbd>
+  </div>
+  <div class="tright">
+    <button class="tbtn green"><i class="ti ti-plus" aria-hidden="true"></i> Create</button>
+    <button class="tbtn" style="position:relative"><i class="ti ti-bell" aria-hidden="true"></i><span style="position:absolute;top:3px;right:3px;width:5px;height:5px;background:#E24B4A;border-radius:50%"></span></button>
+    <button class="tbtn"><i class="ti ti-help" aria-hidden="true"></i></button>
+    <div class="av">KM</div>
+    <span style="font-size:11.5px;font-weight:500;color:var(--ink)">Kevin Mirera</span>
+    <i class="ti ti-chevron-down" aria-hidden="true" style="font-size:12px;color:var(--mu)"></i>
+  </div>
+</div>
+
+<div class="sidebar">
+  <div class="orgrow">
+    <div class="orgav" style="background:var(--g)">HI</div>
+    <div><div class="orgname">Historia Inc.</div><div class="orgplan">Enterprise Plan</div></div>
+    <i class="ti ti-chevron-down" aria-hidden="true" style="font-size:11px;color:var(--mu);margin-left:auto"></i>
+  </div>
+
+  <div class="nlabel">Main</div>
+  <div class="ni act" onclick="show('dashboard')"><i class="ti ti-home" aria-hidden="true"></i> Dashboard</div>
+  <div class="ni" onclick="show('agents')"><i class="ti ti-robot" aria-hidden="true"></i> AI agents <span class="nbadge green">12</span></div>
+  <div class="ni" onclick="show('studio')"><i class="ti ti-wand" aria-hidden="true"></i> Agent studio</div>
+  <div class="ni" onclick="show('knowledge')"><i class="ti ti-book" aria-hidden="true"></i> Knowledge base</div>
+  <div class="ni" onclick="show('customers')"><i class="ti ti-users-group" aria-hidden="true"></i> Customer memory</div>
+  <div class="ni" onclick="show('website')"><i class="ti ti-world" aria-hidden="true"></i> Website AI</div>
+
+  <div class="nlabel">Studio</div>
+  <div class="ni" onclick="show('marketplace')"><i class="ti ti-store" aria-hidden="true"></i> Marketplace</div>
+  <div class="ni" onclick="show('video')"><i class="ti ti-player-play" aria-hidden="true"></i> Video studio</div>
+  <div class="ni" onclick="show('meetings')"><i class="ti ti-video" aria-hidden="true"></i> Meetings <span class="nbadge green">Live</span></div>
+  <div class="ni" onclick="show('sales')"><i class="ti ti-trending-up" aria-hidden="true"></i> Sales studio</div>
+
+  <div class="nlabel">Insights</div>
+  <div class="ni" onclick="show('analytics')"><i class="ti ti-chart-bar" aria-hidden="true"></i> Analytics</div>
+  <div class="ni" onclick="show('memgraph')"><i class="ti ti-topology-star" aria-hidden="true"></i> Memory graph</div>
+  <div class="ni"><i class="ti ti-file" aria-hidden="true"></i> Documents</div>
+  <div class="ni"><i class="ti ti-plug" aria-hidden="true"></i> Integrations</div>
+
+  <div class="nlabel">Org</div>
+  <div class="ni"><i class="ti ti-users" aria-hidden="true"></i> Team</div>
+  <div class="ni"><i class="ti ti-credit-card" aria-hidden="true"></i> Billing</div>
+  <div class="ni"><i class="ti ti-settings" aria-hidden="true"></i> Settings</div>
+
+  <div class="sfooter">
+    <div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="font-size:10px;color:var(--mu)">Memory usage</span><span style="font-size:10px;font-weight:500;color:var(--ink)">72%</span></div>
+    <div class="membar"><div class="memfill"></div></div>
+    <button style="width:100%;font-family:'DM Sans',sans-serif;font-size:10px;font-weight:500;padding:5px;border-radius:5px;border:0.5px solid var(--br);background:transparent;color:var(--g);cursor:pointer">Explore AI features</button>
+  </div>
+</div>
+
+<div class="main">
+
+<div class="view show" id="v-dashboard">
+  <div class="greeting">
+    <div><h1>Good morning, Kevin!</h1><p>Here's what's happening at Historia Inc. today — May 20, 2025.</p></div>
+    <div class="qas">
+      <button class="qab"><i class="ti ti-sparkles" aria-hidden="true" style="color:var(--g)"></i> Ask AI</button>
+      <button class="qab"><i class="ti ti-plus" aria-hidden="true"></i> Add memory</button>
+      <button class="qab"><i class="ti ti-video" aria-hidden="true"></i> New meeting</button>
+      <button class="qab g"><i class="ti ti-sparkles" aria-hidden="true"></i> Generate</button>
+    </div>
+  </div>
+  <div class="mrow c4">
+    <div class="mc"><div class="mlabel">Company memory score</div><div class="mval">92 <span style="font-size:11px;font-weight:400;color:var(--g)">Excellent</span></div><div class="mtrend up"><i class="ti ti-trending-up" aria-hidden="true" style="font-size:11px"></i> 12% vs last month</div><div class="spark"><svg viewBox="0 0 100 24" width="100%" height="24" preserveAspectRatio="none"><polyline points="0,20 16,16 33,18 50,10 66,8 83,5 100,3" fill="none" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    <div class="mc"><div class="mlabel">Knowledge retention</div><div class="mval">89% <span style="font-size:11px;font-weight:400;color:var(--bl)">High</span></div><div class="mtrend up"><i class="ti ti-trending-up" aria-hidden="true" style="font-size:11px"></i> 8% vs last month</div><div class="spark"><svg viewBox="0 0 100 24" width="100%" height="24" preserveAspectRatio="none"><polyline points="0,18 16,14 33,16 50,11 66,8 83,6 100,4" fill="none" stroke="#534AB7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    <div class="mc"><div class="mlabel">Active employees</div><div class="mval">48 <span style="font-size:11px;font-weight:400;color:var(--mu)">this month</span></div><div class="mtrend up"><i class="ti ti-trending-up" aria-hidden="true" style="font-size:11px"></i> 15% vs last month</div><div class="spark"><svg viewBox="0 0 100 24" width="100%" height="24" preserveAspectRatio="none"><polyline points="0,20 16,18 33,15 50,13 66,10 83,8 100,5" fill="none" stroke="#378ADD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    <div class="mc"><div class="mlabel">AI agents active</div><div class="mval">12 <span style="font-size:11px;font-weight:400;color:var(--g)">active</span></div><div class="mtrend up"><i class="ti ti-trending-up" aria-hidden="true" style="font-size:11px"></i> 3 new this month</div><div class="spark"><svg viewBox="0 0 100 24" width="100%" height="24" preserveAspectRatio="none"><polyline points="0,22 16,20 33,17 50,15 66,11 83,7 100,4" fill="none" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+  </div>
+  <div class="mrow c2">
+    <div class="card">
+      <div class="ch"><span class="ctitle"><i class="ti ti-sparkles" aria-hidden="true" style="color:var(--g);margin-right:4px"></i>AI recommendations</span><span class="cact">View all</span></div>
+      <div class="row">
+        <div class="ic" style="background:var(--glt)"><i class="ti ti-run" aria-hidden="true" style="color:var(--g)"></i></div>
+        <div style="flex:1">
+          <div class="rname">Users remember athlete stories 3× more than product specs</div>
+          <div class="rsub">Build a Running Recovery AI to capture this intent.</div>
+          <div style="display:flex;align-items:center;gap:5px;margin-top:4px"><span class="tag tg">+27% engagement</span><span style="font-size:10px;color:var(--mu)">94% confidence</span></div>
+          <div style="display:flex;gap:4px;margin-top:4px"><button class="abtn p">Build agent</button><button class="abtn">Preview</button><button class="abtn">Later</button></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="ic" style="background:var(--pult)"><i class="ti ti-world" aria-hidden="true" style="color:var(--pu)"></i></div>
+        <div style="flex:1">
+          <div class="rname">Homepage hero has only 12% recall vs 84% for athlete stories</div>
+          <div class="rsub">Improve homepage hero image.</div>
+          <div style="display:flex;align-items:center;gap:5px;margin-top:4px"><span class="tag tp">+19% recall</span><span style="font-size:10px;color:var(--mu)">88% confidence</span></div>
+          <div style="display:flex;gap:4px;margin-top:4px"><button class="abtn p">Apply change</button><button class="abtn">Preview</button><button class="abtn">Dismiss</button></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="ic" style="background:var(--amlt)"><i class="ti ti-school" aria-hidden="true" style="color:var(--am)"></i></div>
+        <div style="flex:1">
+          <div class="rname">Employees repeat same onboarding explanation 6× per week</div>
+          <div class="rsub">Publish an Onboarding AI to save 4h/week per manager.</div>
+          <div style="display:flex;align-items:center;gap:5px;margin-top:4px"><span class="tag ta">4h saved/week</span><span style="font-size:10px;color:var(--mu)">91% confidence</span></div>
+          <div style="display:flex;gap:4px;margin-top:4px"><button class="abtn p">Create AI</button><button class="abtn">Later</button></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="ic" style="background:var(--colt)"><i class="ti ti-coin" aria-hidden="true" style="color:var(--co)"></i></div>
+        <div style="flex:1">
+          <div class="rname">Users repeatedly ask about financing but abandon checkout</div>
+          <div class="rsub">Build a Mortgage Calculator AI.</div>
+          <div style="display:flex;align-items:center;gap:5px;margin-top:4px"><span class="tag tc">+22% conversions</span><span style="font-size:10px;color:var(--mu)">86% confidence</span></div>
+          <div style="display:flex;gap:4px;margin-top:4px"><button class="abtn p">Build agent</button><button class="abtn">Preview</button></div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div class="card">
+        <div class="ch"><span class="ctitle">Recent memories</span><span class="cact">View all</span></div>
+        <div class="row"><div class="ic" style="background:var(--bllt)"><i class="ti ti-calendar-event" aria-hidden="true" style="color:var(--bl)"></i></div><div><span class="tag tb" style="margin-bottom:3px;display:inline-flex">Meeting</span><div class="rname">Q3 product strategy discussion</div><div class="rsub">With Sarah, David +5 · Today 10:30 AM</div></div></div>
+        <div class="row"><div class="ic" style="background:var(--glt)"><i class="ti ti-check" aria-hidden="true" style="color:var(--g)"></i></div><div><span class="tag tg" style="margin-bottom:3px;display:inline-flex">Decision</span><div class="rname">Approved AI memory search MVP</div><div class="rsub">By Leadership Team · Yesterday 4:15 PM</div></div></div>
+        <div class="row"><div class="ic" style="background:var(--pult)"><i class="ti ti-file-text" aria-hidden="true" style="color:var(--pu)"></i></div><div><span class="tag tp" style="margin-bottom:3px;display:inline-flex">Document</span><div class="rname">Historia Chrome Extension Roadmap</div><div class="rsub">By Kevin Mirera · Yesterday 11:20 AM</div></div></div>
+      </div>
+      <div class="card">
+        <div class="ch"><span class="ctitle">Active agents</span><span class="cact" onclick="show('agents')">Agent Studio</span></div>
+        <div class="row"><div class="ic" style="background:var(--glt)"><i class="ti ti-message-circle" aria-hidden="true" style="color:var(--g)"></i></div><div style="flex:1"><div class="rname">Customer Support AI</div><div class="rsub">1,248 conversations this month</div></div><div class="sdot"></div></div>
+        <div class="row"><div class="ic" style="background:var(--pult)"><i class="ti ti-trending-up" aria-hidden="true" style="color:var(--pu)"></i></div><div style="flex:1"><div class="rname">Sales Coach AI</div><div class="rsub">42 employees enrolled</div></div><div class="sdot"></div></div>
+        <div class="row"><div class="ic" style="background:var(--bllt)"><i class="ti ti-users" aria-hidden="true" style="color:var(--bl)"></i></div><div style="flex:1"><div class="rname">HR Assistant AI</div><div class="rsub">127 queries resolved this week</div></div><div class="sdot"></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="ai-bar">
+    <i class="ti ti-sparkles icon" aria-hidden="true"></i>
+    <span>Ask Historia AI — what did we decide last week?</span>
+    <div class="chips">
+      <button class="chip">Who knows Kubernetes?</button>
+      <button class="chip">Summarize today's meetings</button>
+      <button class="chip">Show deep work patterns</button>
+    </div>
+    <button class="sendbtn" aria-label="Send"><i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+  </div>
+</div>
+
+<div class="view" id="v-studio">
+  <div class="greeting"><div><h1>Agent studio</h1><p>Build a new AI agent for your organization.</p></div><button class="qab g"><i class="ti ti-sparkles" aria-hidden="true"></i> New agent</button></div>
+  <div class="wizard-steps">
+    <div class="ws done"><i class="ti ti-check" aria-hidden="true" style="font-size:11px"></i> Agent type</div>
+    <div class="ws act">Name + personality</div>
+    <div class="ws">Knowledge</div>
+    <div class="ws">Permissions</div>
+    <div class="ws">Pricing</div>
+    <div class="ws">Publish</div>
+  </div>
+  <div class="mrow c2">
+    <div class="card">
+      <div class="ch"><span class="ctitle">Choose agent type</span></div>
+      <div class="agent-type-grid">
+        <div class="atcard sel"><i class="ti ti-message-circle" aria-hidden="true" style="color:var(--g)"></i><div class="name">Customer support</div></div>
+        <div class="atcard"><i class="ti ti-coin" aria-hidden="true" style="color:var(--am)"></i><div class="name">Finance tutor</div></div>
+        <div class="atcard"><i class="ti ti-trending-up" aria-hidden="true" style="color:var(--pu)"></i><div class="name">Sales coach</div></div>
+        <div class="atcard"><i class="ti ti-briefcase" aria-hidden="true" style="color:var(--bl)"></i><div class="name">Interview coach</div></div>
+        <div class="atcard"><i class="ti ti-run" aria-hidden="true" style="color:var(--g)"></i><div class="name">Running coach</div></div>
+        <div class="atcard"><i class="ti ti-heart-rate-monitor" aria-hidden="true" style="color:var(--co)"></i><div class="name">Healthcare assistant</div></div>
+        <div class="atcard"><i class="ti ti-book" aria-hidden="true" style="color:var(--am)"></i><div class="name">Knowledge assistant</div></div>
+        <div class="atcard"><i class="ti ti-users" aria-hidden="true" style="color:var(--pu)"></i><div class="name">HR assistant</div></div>
+        <div class="atcard"><i class="ti ti-shield-check" aria-hidden="true" style="color:var(--bl)"></i><div class="name">Compliance assistant</div></div>
+      </div>
+      <div style="margin-bottom:8px"><label style="font-size:11px;font-weight:500;color:var(--ink);display:block;margin-bottom:4px">Agent name</label><input type="text" value="Customer Support AI" style="width:100%;font-family:'DM Sans',sans-serif;font-size:12px;padding:7px 10px;border:0.5px solid var(--br);border-radius:6px;background:var(--page);color:var(--ink)"></div>
+      <div><div style="font-size:11px;font-weight:500;color:var(--ink);margin-bottom:6px">Personality</div><div style="display:flex;flex-wrap:wrap;gap:5px">
+        <button class="abtn p">Friendly</button><button class="abtn">Professional</button><button class="abtn">Technical</button><button class="abtn">Coach</button><button class="abtn">Teacher</button><button class="abtn">Executive</button>
+      </div></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div class="card">
+        <div class="ch"><span class="ctitle">Upload knowledge</span></div>
+        <div class="upload-zone">
+          <i class="ti ti-cloud-upload" aria-hidden="true"></i>
+          <p>Drag files here or click to upload</p>
+          <span>PDFs, videos, policies, recordings, URLs, CSVs</span>
+        </div>
+        <div class="file-types">
+          <span class="ft">PDF</span><span class="ft">Word</span><span class="ft">PowerPoint</span><span class="ft">Video</span><span class="ft">CSV</span><span class="ft">Markdown</span><span class="ft">URL</span><span class="ft">Meeting recordings</span>
+        </div>
+        <div style="background:var(--glt);border-radius:7px;padding:8px 10px">
+          <div style="font-size:11px;font-weight:500;color:var(--g);margin-bottom:4px"><i class="ti ti-sparkles" aria-hidden="true"></i> AI organizing knowledge…</div>
+          <div style="font-size:10.5px;color:var(--g)">32 items indexed · 5 topics detected · Knowledge graph building</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ch"><span class="ctitle">Permissions</span><span style="font-size:10px;color:var(--g)">Trust score: 94</span></div>
+        <div class="perm-card">
+          <div class="perm-tog"><div class="ptknob"></div></div>
+          <div><div class="perm-name">Learning goals</div><div class="perm-why">Personalizes recommendations to each user's progress. Improves answer relevance by 34%.</div></div>
+        </div>
+        <div class="perm-card">
+          <div class="perm-tog"><div class="ptknob"></div></div>
+          <div><div class="perm-name">Purchase history</div><div class="perm-why">Enables proactive support based on what was bought. Reduces tickets by 28%.</div></div>
+        </div>
+        <div class="perm-card">
+          <div class="perm-tog-off"><div class="ptknob-off"></div></div>
+          <div><div class="perm-name">Financial documents</div><div class="perm-why">Not needed for customer support. Keeping this off increases trust score.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:4px">
+    <button class="abtn">Back</button>
+    <button class="abtn p" style="padding:6px 16px;font-size:12px">Continue to pricing</button>
+  </div>
+</div>
+
+<div class="view" id="v-meetings">
+  <div class="greeting"><div><h1>Q2 product strategy meeting</h1><p style="display:flex;align-items:center;gap:6px"><span style="background:#E24B4A;color:#fff;font-size:9px;font-weight:500;padding:2px 6px;border-radius:3px">LIVE</span> 9:30 AM – 11:00 AM · Conference Room A</p></div>
+    <div class="qas"><button class="qab">Share</button><button class="qab" style="background:#E24B4A;color:#fff;border-color:#E24B4A"><i class="ti ti-player-stop" aria-hidden="true"></i> End meeting</button></div>
+  </div>
+  <div class="meeting-layout">
+    <div>
+      <div class="video-box">
+        <div style="width:100%;height:100%;background:#2C2C2A;display:flex;align-items:center;justify-content:center;min-height:160px">
+          <div style="text-align:center"><i class="ti ti-users" aria-hidden="true" style="font-size:32px;color:rgba(255,255,255,.2)"></i><div style="font-size:11px;color:rgba(255,255,255,.3);margin-top:6px">Live video feed</div></div>
+        </div>
+        <div class="rec"><i class="ti ti-circle" aria-hidden="true"></i><span>REC 00:42:17</span></div>
+        <div class="timer">4 participants</div>
+      </div>
+      <div class="video-controls">
+        <div class="vc"><i class="ti ti-microphone" aria-hidden="true"></i></div>
+        <div class="vc"><i class="ti ti-video" aria-hidden="true"></i></div>
+        <div class="vc"><i class="ti ti-screen-share" aria-hidden="true"></i></div>
+        <div class="vc end"><i class="ti ti-phone-off" aria-hidden="true"></i></div>
+        <div class="vc"><i class="ti ti-users" aria-hidden="true"></i></div>
+        <div class="vc"><i class="ti ti-settings" aria-hidden="true"></i></div>
+      </div>
+      <div style="font-size:11.5px;font-weight:500;color:var(--ink);margin-bottom:6px">Synchronized meeting moments <span style="font-size:10px;font-weight:400;color:var(--mu)">— jump to any moment</span></div>
+      <div class="moments-row">
+        <div class="moment"><div class="moment-thumb"><i class="ti ti-users" aria-hidden="true" style="font-size:12px;color:rgba(255,255,255,.4)"></i><span>10:04</span></div><div class="moment-label"><div class="moment-title">Q2 goals discussion</div><div class="moment-tag" style="color:var(--bl)">Discussion</div></div></div>
+        <div class="moment"><div class="moment-thumb" style="background:#3C3489"><i class="ti ti-user-plus" aria-hidden="true" style="font-size:12px;color:rgba(255,255,255,.5)"></i><span>10:18</span></div><div class="moment-label"><div class="moment-title">Hiring plan</div><div class="moment-tag" style="color:var(--g)">Decision</div></div></div>
+        <div class="moment"><div class="moment-thumb" style="background:#2C4A38"><i class="ti ti-calendar" aria-hidden="true" style="font-size:12px;color:rgba(255,255,255,.5)"></i><span>10:27</span></div><div class="moment-label"><div class="moment-title">Marketplace timeline</div><div class="moment-tag" style="color:var(--g)">Decision</div></div></div>
+        <div class="moment"><div class="moment-thumb"><i class="ti ti-building" aria-hidden="true" style="font-size:12px;color:rgba(255,255,255,.4)"></i><span>10:41</span></div><div class="moment-label"><div class="moment-title">Enterprise focus</div><div class="moment-tag" style="color:var(--g)">Decision</div></div></div>
+        <div class="moment"><div class="moment-thumb" style="background:#1A2C40"><i class="ti ti-device-laptop" aria-hidden="true" style="font-size:12px;color:rgba(255,255,255,.5)"></i><span>10:58</span></div><div class="moment-label"><div class="moment-title">MVP demo</div><div class="moment-tag" style="color:var(--am)">Demo</div></div></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div class="card" style="flex:1">
+        <div class="ch"><div style="display:flex;align-items:center;gap:6px"><i class="ti ti-sparkles" aria-hidden="true" style="color:var(--g);font-size:13px"></i><span class="ctitle">AI live summary</span></div><span style="font-size:9px;color:var(--g);background:var(--glt);padding:2px 6px;border-radius:100px">Auto-updating</span></div>
+        <div style="font-size:11.5px;color:var(--ink);line-height:1.5;margin-bottom:10px">Discussed Q2 goals, product priorities, and plan to launch Chrome Extension MVP in August. Team agreed to focus on enterprise use cases after MVP.</div>
+        <div style="font-size:11px;font-weight:500;color:var(--ink);margin-bottom:6px"><i class="ti ti-check-box" aria-hidden="true" style="color:var(--g)"></i> Key decisions</div>
+        <div class="row" style="padding:5px 0"><div style="flex:1"><div style="font-size:11px;color:var(--ink)">Launch Chrome Extension MVP in August</div></div><span style="font-size:10px;color:var(--mu)">10:04</span></div>
+        <div class="row" style="padding:5px 0"><div style="flex:1"><div style="font-size:11px;color:var(--ink)">Hire 1 frontend engineer</div></div><span style="font-size:10px;color:var(--mu)">10:18</span></div>
+        <div class="row" style="padding:5px 0"><div style="flex:1"><div style="font-size:11px;color:var(--ink)">Delay marketplace until Q4</div></div><span style="font-size:10px;color:var(--mu)">10:27</span></div>
+        <div style="font-size:11px;font-weight:500;color:var(--ink);margin:8px 0 5px"><i class="ti ti-checkbox" aria-hidden="true" style="color:var(--am)"></i> Action items</div>
+        <div class="row" style="padding:5px 0"><div style="flex:1"><div style="font-size:11px;color:var(--ink)">Kevin — Create MVP UI prototype</div></div><span style="font-size:10px;color:var(--co)">Due May 24</span></div>
+        <div class="row" style="padding:5px 0"><div style="flex:1"><div style="font-size:11px;color:var(--ink)">Sarah — Research onboarding flow</div></div><span style="font-size:10px;color:var(--co)">Due May 22</span></div>
+        <div class="row" style="padding:5px 0;border:none"><div style="flex:1"><div style="font-size:11px;color:var(--ink)">David — DB performance test</div></div><span style="font-size:10px;color:var(--co)">Due May 23</span></div>
+      </div>
+      <div class="card">
+        <div style="font-size:11px;font-weight:500;color:var(--ink);margin-bottom:6px">Ask about this meeting</div>
+        <div style="display:flex;gap:6px;align-items:center;background:var(--page);border:0.5px solid var(--br);border-radius:6px;padding:6px 8px">
+          <span style="font-size:11px;color:var(--mu);flex:1">When did we discuss pricing?</span>
+          <button class="sendbtn" style="width:22px;height:22px" aria-label="Send"><i class="ti ti-arrow-right" aria-hidden="true" style="font-size:11px"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="view" id="v-sales">
+  <div class="greeting"><div><h1>Sales studio</h1><p>AI-powered coaching from your best conversations.</p></div><button class="qab g"><i class="ti ti-upload" aria-hidden="true"></i> Upload call</button></div>
+  <div class="mrow c2">
+    <div class="card">
+      <div class="ch"><span class="ctitle">Latest call analysis — Kevin Mirera</span><span class="tag tg">High performer</span></div>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+        <svg class="sales-score-ring" viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" fill="none" stroke="var(--br)" stroke-width="6"/><circle cx="32" cy="32" r="26" fill="none" stroke="#0F6E56" stroke-width="6" stroke-dasharray="136 164" stroke-dashoffset="41" stroke-linecap="round"/><text x="32" y="37" text-anchor="middle" font-size="14" font-weight="500" fill="#1A1916">83%</text></svg>
+        <div>
+          <div style="font-size:13px;font-weight:500;color:var(--ink)">Overall score</div>
+          <div style="font-size:11px;color:var(--mu)">45min call · Prospect: Equity Bank</div>
+          <div style="font-size:11px;color:var(--g);margin-top:3px"><i class="ti ti-trending-up" aria-hidden="true"></i> 12% above team average</div>
+        </div>
+      </div>
+      <div class="metric-bar-row"><div class="metric-bar-label">Confidence</div><div class="metric-bar-track"><div class="metric-bar-fill" style="width:87%;background:var(--g)"></div></div><div class="metric-bar-val">87%</div></div>
+      <div class="metric-bar-row"><div class="metric-bar-label">Speaking ratio</div><div class="metric-bar-track"><div class="metric-bar-fill" style="width:42%;background:var(--bl)"></div></div><div class="metric-bar-val">42%</div></div>
+      <div class="metric-bar-row"><div class="metric-bar-label">Customer sentiment</div><div class="metric-bar-track"><div class="metric-bar-fill" style="width:78%;background:var(--pu)"></div></div><div class="metric-bar-val">78%</div></div>
+      <div class="metric-bar-row"><div class="metric-bar-label">Objection handling</div><div class="metric-bar-track"><div class="metric-bar-fill" style="width:72%;background:var(--am)"></div></div><div class="metric-bar-val">72%</div></div>
+      <div class="metric-bar-row"><div class="metric-bar-label">Compliance</div><div class="metric-bar-track"><div class="metric-bar-fill" style="width:96%;background:var(--g)"></div></div><div class="metric-bar-val">96%</div></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div class="card">
+        <div class="ch"><span class="ctitle">Winning phrases detected</span></div>
+        <div class="phrase-row"><div style="flex:1"><div class="rname">"Let me show you how other banks solved this…"</div><div class="rsub">Used 3× — high close correlation</div></div><span class="tag tg">High impact</span></div>
+        <div class="phrase-row"><div style="flex:1"><div class="rname">"What does success look like for your team?"</div><div class="rsub">Used 2× — strong discovery</div></div><span class="tag tg">High impact</span></div>
+        <div class="phrase-row"><div style="flex:1"><div class="rname">"The ROI typically shows up in 90 days…"</div><div class="rsub">Used 1× — objection handled well</div></div><span class="tag tp">Medium</span></div>
+      </div>
+      <div class="card">
+        <div class="ch"><span class="ctitle">AI coaching recommendations</span></div>
+        <div class="row"><div class="ic" style="background:var(--amlt)"><i class="ti ti-microphone" aria-hidden="true" style="color:var(--am)"></i></div><div><div class="rname">Reduce filler words by 40%</div><div class="rsub">"Um" detected 23 times. Practice with voice coach AI.</div></div></div>
+        <div class="row"><div class="ic" style="background:var(--glt)"><i class="ti ti-trending-up" aria-hidden="true" style="color:var(--g)"></i></div><div><div class="rname">Ask more discovery questions early</div><div class="rsub">First question came at 8min. Aim for 3min.</div></div></div>
+        <div style="margin-top:8px"><button class="abtn p" style="width:100%;padding:7px;font-size:11px;justify-content:center;display:flex;align-items:center;gap:5px"><i class="ti ti-robot" aria-hidden="true"></i> Generate Sales Coach AI from this call</button></div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ch"><span class="ctitle">Team leaderboard — this month</span><span class="cact">View all calls</span></div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+      <div class="row" style="border:none;padding:0;flex-direction:column;align-items:center;text-align:center;background:var(--glt);border-radius:7px;padding:10px"><div class="av" style="margin:0 auto 5px;width:32px;height:32px;font-size:12px">KM</div><div class="rname">Kevin Mirera</div><div style="font-size:14px;font-weight:500;color:var(--g);margin-top:3px">83%</div></div>
+      <div class="row" style="border:none;padding:0;flex-direction:column;align-items:center;text-align:center;background:var(--page);border-radius:7px;padding:10px"><div class="av" style="margin:0 auto 5px;width:32px;height:32px;font-size:12px;background:var(--pult);color:var(--pu)">SW</div><div class="rname">Sarah Wanjiku</div><div style="font-size:14px;font-weight:500;color:var(--pu);margin-top:3px">79%</div></div>
+      <div class="row" style="border:none;padding:0;flex-direction:column;align-items:center;text-align:center;background:var(--page);border-radius:7px;padding:10px"><div class="av" style="margin:0 auto 5px;width:32px;height:32px;font-size:12px;background:var(--bllt);color:var(--bl)">DO</div><div class="rname">David Ochieng</div><div style="font-size:14px;font-weight:500;color:var(--bl);margin-top:3px">74%</div></div>
+      <div class="row" style="border:none;padding:0;flex-direction:column;align-items:center;text-align:center;background:var(--page);border-radius:7px;padding:10px"><div class="av" style="margin:0 auto 5px;width:32px;height:32px;font-size:12px;background:var(--amlt);color:var(--am)">BO</div><div class="rname">Brian Otieno</div><div style="font-size:14px;font-weight:500;color:var(--am);margin-top:3px">68%</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="view" id="v-knowledge">
+  <div class="greeting"><div><h1>Knowledge base</h1><p>1,248 items across 8 topic clusters. Search anything in natural language.</p></div><button class="qab g"><i class="ti ti-plus" aria-hidden="true"></i> Add knowledge</button></div>
+  <div class="card" style="margin-bottom:10px">
+    <div style="display:flex;align-items:center;gap:8px;background:var(--page);border:0.5px solid var(--br);border-radius:7px;padding:8px 12px">
+      <i class="ti ti-search" aria-hidden="true" style="color:var(--mu);font-size:14px"></i>
+      <span style="font-size:12px;color:var(--mu);flex:1">Show everything related to running injuries…</span>
+      <span class="tag tg">AI search</span>
+    </div>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;margin-bottom:12px">
+    <div class="kb-node" style="background:var(--glt);border-color:rgba(15,110,86,.2);color:var(--g)"><i class="ti ti-shield-check" aria-hidden="true" style="font-size:12px"></i> Policies</div>
+    <div class="kb-node" style="background:var(--pult);border-color:rgba(83,74,183,.2);color:var(--pu)"><i class="ti ti-package" aria-hidden="true" style="font-size:12px"></i> Products</div>
+    <div class="kb-node" style="background:var(--bllt);border-color:rgba(24,95,165,.2);color:var(--bl)"><i class="ti ti-player-play" aria-hidden="true" style="font-size:12px"></i> Videos</div>
+    <div class="kb-node" style="background:var(--amlt);border-color:rgba(133,79,11,.2);color:var(--am)"><i class="ti ti-school" aria-hidden="true" style="font-size:12px"></i> Training</div>
+    <div class="kb-node" style="background:var(--colt);border-color:rgba(153,60,29,.2);color:var(--co)"><i class="ti ti-headset" aria-hidden="true" style="font-size:12px"></i> Support</div>
+    <div class="kb-node" style="background:var(--glt);border-color:rgba(15,110,86,.2);color:var(--g)"><i class="ti ti-microscope" aria-hidden="true" style="font-size:12px"></i> Research</div>
+    <div class="kb-node" style="background:var(--pult);border-color:rgba(83,74,183,.2);color:var(--pu)"><i class="ti ti-trending-up" aria-hidden="true" style="font-size:12px"></i> Sales</div>
+    <div class="kb-node" style="background:var(--bllt);border-color:rgba(24,95,165,.2);color:var(--bl)"><i class="ti ti-scale" aria-hidden="true" style="font-size:12px"></i> Legal</div>
+  </div>
+  <div class="kb-grid">
+    <div class="kb-card"><div class="kb-count">312</div><div class="kb-name">Policies and compliance</div><div class="rsub" style="margin-top:4px">Last updated 2h ago</div></div>
+    <div class="kb-card"><div class="kb-count">208</div><div class="kb-name">Product documentation</div><div class="rsub" style="margin-top:4px">Last updated yesterday</div></div>
+    <div class="kb-card"><div class="kb-count">184</div><div class="kb-name">Training videos</div><div class="rsub" style="margin-top:4px">48 hours of content</div></div>
+    <div class="kb-card"><div class="kb-count">156</div><div class="kb-name">Sales playbooks</div><div class="rsub" style="margin-top:4px">Last updated 3 days ago</div></div>
+    <div class="kb-card"><div class="kb-count">143</div><div class="kb-name">Support tickets (resolved)</div><div class="rsub" style="margin-top:4px">6 months of history</div></div>
+    <div class="kb-card"><div class="kb-count">245</div><div class="kb-name">Research and reports</div><div class="rsub" style="margin-top:4px">Including competitor analysis</div></div>
+  </div>
+  <div class="ai-bar">
+    <i class="ti ti-sparkles icon" aria-hidden="true"></i>
+    <span>Ask about any knowledge — "Show running injury content"</span>
+    <button class="sendbtn" aria-label="Send"><i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+  </div>
+</div>
+
+<div class="view" id="v-customers">
+  <div class="greeting"><div><h1>Customer memory</h1><p>Permissioned insights from 84 consenting customers.</p></div><button class="qab g"><i class="ti ti-user-plus" aria-hidden="true"></i> Request memory</button></div>
+  <div class="mrow c3" style="margin-bottom:10px">
+    <div class="mc"><div class="mlabel">Avg memory score</div><div class="mval" style="font-size:18px">78%</div><div class="mtrend up">Strong recall</div></div>
+    <div class="mc"><div class="mlabel">Permissions granted</div><div class="mval" style="font-size:18px">84</div><div class="mtrend up">12 new this week</div></div>
+    <div class="mc"><div class="mlabel">Pending requests</div><div class="mval" style="font-size:18px">6</div><div class="mtrend" style="color:var(--am)">Awaiting consent</div></div>
+  </div>
+  <div class="mrow c2">
+    <div class="card">
+      <div class="ch"><span class="ctitle">Customer: Sarah Wanjiku</span><span class="tag tg">Verified</span></div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+        <div class="av" style="width:36px;height:36px;font-size:13px">SW</div>
+        <div><div style="font-size:13px;font-weight:500;color:var(--ink)">Sarah Wanjiku</div><div style="font-size:11px;color:var(--mu)">Memory confidence: 91% · 24 items</div></div>
+      </div>
+      <div class="prog-row"><div class="prog-label">Shoe preference: minimalist</div><div class="prog-track"><div class="prog-fill" style="width:88%"></div></div><div class="prog-val">88%</div></div>
+      <div class="prog-row"><div class="prog-label">Training goal: marathon</div><div class="prog-track"><div class="prog-fill" style="width:94%"></div></div><div class="prog-val">94%</div></div>
+      <div class="prog-row"><div class="prog-label">Brand loyalty: Nike</div><div class="prog-track"><div class="prog-fill" style="width:76%"></div></div><div class="prog-val">76%</div></div>
+      <div class="prog-row"><div class="prog-label">Purchase intent: high</div><div class="prog-track"><div class="prog-fill" style="width:82%"></div></div><div class="prog-val">82%</div></div>
+      <div style="border-top:0.5px solid var(--br);padding-top:8px;margin-top:4px">
+        <div style="font-size:11px;font-weight:500;color:var(--ink);margin-bottom:5px">Granted permissions</div>
+        <div style="display:flex;flex-wrap:wrap;gap:4px"><span class="tag tg">Learning goals</span><span class="tag tg">Purchase history</span><span class="tag tg">Running preferences</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch"><span class="ctitle">Request additional memory</span></div>
+      <div style="font-size:12px;color:var(--ink);margin-bottom:10px">Requesting <strong>shoe size</strong> from Sarah Wanjiku would improve size recommendations.</div>
+      <div style="background:var(--glt);border-radius:7px;padding:10px;margin-bottom:8px">
+        <div style="font-size:11px;font-weight:500;color:var(--g);margin-bottom:3px">Why this improves experience</div>
+        <div style="font-size:11px;color:var(--g)">Reduces returns by 34% · Improves fit recommendations · Estimated approval rate: 89%</div>
+      </div>
+      <button class="abtn p" style="width:100%;padding:7px;font-size:11px;display:flex;align-items:center;justify-content:center;gap:5px"><i class="ti ti-send" aria-hidden="true"></i> Send permission request</button>
+      <div style="margin-top:10px;font-size:11px;font-weight:500;color:var(--ink);margin-bottom:6px">Never share</div>
+      <div style="display:flex;flex-wrap:wrap;gap:4px"><span class="tag tc">Financial data</span><span class="tag tc">Medical records</span><span class="tag tc">Location history</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="view" id="v-website">
+  <div class="greeting"><div><h1>Website AI</h1><p>AI continuously analyzes user memory to improve your site.</p></div><button class="qab g"><i class="ti ti-refresh" aria-hidden="true"></i> Run analysis</button></div>
+  <div class="mrow c4">
+    <div class="mc" style="border-left:3px solid var(--g);border-radius:0 9px 9px 0"><div class="mlabel">Top remembered</div><div class="mval" style="font-size:16px">Athlete stories</div><div class="mtrend up">92% recall</div></div>
+    <div class="mc" style="border-left:3px solid var(--pu);border-radius:0 9px 9px 0"><div class="mlabel">Strong recall</div><div class="mval" style="font-size:16px">Recovery articles</div><div class="mtrend up">81% recall</div></div>
+    <div class="mc" style="border-left:3px solid var(--am);border-radius:0 9px 9px 0"><div class="mlabel">Mostly forgotten</div><div class="mval" style="font-size:16px">Warranty info</div><div class="mtrend dn">19% recall</div></div>
+    <div class="mc" style="border-left:3px solid var(--co);border-radius:0 9px 9px 0"><div class="mlabel">Forgotten</div><div class="mval" style="font-size:16px">Company history</div><div class="mtrend dn">12% recall</div></div>
+  </div>
+  <div class="mrow c2">
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div class="web-rec">
+        <div style="display:flex;align-items:flex-start;gap:10px">
+          <div><div style="font-size:11px;color:var(--mu);margin-bottom:2px">Users remember</div><div class="web-rec-pct" style="color:var(--g)">84%</div></div>
+          <div style="flex:1"><div class="web-rec-title">Athlete stories above product descriptions</div><div class="web-rec-sub">Move athlete stories above the fold on homepage. Expected impact: +27% engagement.</div></div>
+        </div>
+        <div class="web-actions"><button class="abtn p">Preview changes</button><button class="abtn">Apply</button><button class="abtn">Dismiss</button></div>
+      </div>
+      <div class="web-rec">
+        <div style="display:flex;align-items:flex-start;gap:10px">
+          <div><div style="font-size:11px;color:var(--mu);margin-bottom:2px">Users remember</div><div class="web-rec-pct" style="color:var(--pu)">67%</div></div>
+          <div style="flex:1"><div class="web-rec-title">Blue products consistently preferred</div><div class="web-rec-sub">Feature more blue colorways in product grids. Expected recall increase: +22%.</div></div>
+        </div>
+        <div class="web-actions"><button class="abtn pu">Apply</button><button class="abtn">Preview</button><button class="abtn">Dismiss</button></div>
+      </div>
+      <div class="web-rec">
+        <div style="display:flex;align-items:flex-start;gap:10px">
+          <div><div style="font-size:11px;color:var(--mu);margin-bottom:2px">Users forget</div><div class="web-rec-pct" style="color:var(--co)">12%</div></div>
+          <div style="flex:1"><div class="web-rec-title">Sustainability page has near-zero recall</div><div class="web-rec-sub">Create an interactive impact calculator. Expected improvement: +45% recall.</div></div>
+        </div>
+        <div class="web-actions"><button class="abtn p">Create experience</button><button class="abtn">Later</button></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch"><span class="ctitle">Homepage memory heatmap</span><span class="cact">Full report</span></div>
+      <div style="background:var(--page);border-radius:7px;overflow:hidden;margin-bottom:8px">
+        <div style="height:28px;background:var(--glt);display:flex;align-items:center;padding:0 10px"><span style="font-size:10px;color:var(--g);font-weight:500">Hero section — athlete stories</span><span style="margin-left:auto;font-size:11px;font-weight:500;color:var(--g)">84%</span></div>
+        <div style="height:22px;background:rgba(15,110,86,.12);display:flex;align-items:center;padding:0 10px"><span style="font-size:10px;color:var(--mu)">Navigation bar</span><span style="margin-left:auto;font-size:11px;font-weight:500;color:var(--g)">71%</span></div>
+        <div style="height:22px;background:var(--pult);display:flex;align-items:center;padding:0 10px"><span style="font-size:10px;color:var(--pu)">Product grid</span><span style="margin-left:auto;font-size:11px;font-weight:500;color:var(--pu)">58%</span></div>
+        <div style="height:22px;background:var(--amlt);display:flex;align-items:center;padding:0 10px"><span style="font-size:10px;color:var(--am)">Pricing section</span><span style="margin-left:auto;font-size:11px;font-weight:500;color:var(--am)">34%</span></div>
+        <div style="height:22px;background:var(--colt);display:flex;align-items:center;padding:0 10px"><span style="font-size:10px;color:var(--co)">Footer — warranty info</span><span style="margin-left:auto;font-size:11px;font-weight:500;color:var(--co)">12%</span></div>
+      </div>
+      <div style="font-size:11px;font-weight:500;color:var(--ink);margin-bottom:5px">AI insight</div>
+      <div style="font-size:11px;color:var(--mu);line-height:1.5">Users remember narrative content 4× more than transactional content. Restructure page to lead with stories before specs.</div>
+    </div>
+  </div>
+</div>
+
+<div class="view" id="v-marketplace">
+  <div class="greeting"><div><h1>AI marketplace</h1><p>Everything starts in conversation — AI recommends, you publish.</p></div><button class="qab g"><i class="ti ti-plus" aria-hidden="true"></i> New bundle</button></div>
+  <div class="mrow c2">
+    <div class="card" style="display:flex;flex-direction:column;gap:8px">
+      <div class="ch"><span class="ctitle">Marketplace AI assistant</span></div>
+      <div class="mkt-chat">
+        <div class="msg-user">What products should I recommend to marathon runners?</div>
+        <div class="msg-ai">
+          <div style="font-size:12px;color:var(--ink);margin-bottom:8px">Users who recently searched for marathon training are most interested in the Pegasus series. Here are the top picks based on their memory patterns:</div>
+          <div class="prod-carousel">
+            <div class="prod-card"><div class="prod-icon"><i class="ti ti-shoe" aria-hidden="true" style="color:var(--g)"></i></div><div class="prod-name">Pegasus 41</div><div class="prod-price">KES 18,500</div></div>
+            <div class="prod-card"><div class="prod-icon"><i class="ti ti-watch" aria-hidden="true" style="color:var(--pu)"></i></div><div class="prod-name">GPS Watch</div><div class="prod-price">KES 24,000</div></div>
+            <div class="prod-card"><div class="prod-icon"><i class="ti ti-bottle" aria-hidden="true" style="color:var(--am)"></i></div><div class="prod-name">Nutrition Kit</div><div class="prod-price">KES 4,200</div></div>
+            <div class="prod-card"><div class="prod-icon"><i class="ti ti-heart-rate-monitor" aria-hidden="true" style="color:var(--co)"></i></div><div class="prod-name">Recovery Plan</div><div class="prod-price">KES 2,500</div></div>
+          </div>
+        </div>
+        <div class="msg-ai">
+          <div style="font-size:12px;color:var(--ink);margin-bottom:6px">I've created a bundle: <strong>Marathon Starter Pack</strong> with 23% savings vs individual pricing.</div>
+          <div style="display:flex;gap:5px"><button class="abtn p">Publish bundle</button><button class="abtn">Customize</button><button class="abtn">Preview</button></div>
+        </div>
+      </div>
+      <div style="display:flex;gap:6px;align-items:center;background:var(--page);border:0.5px solid var(--br);border-radius:6px;padding:6px 8px;margin-top:auto">
+        <span style="font-size:11px;color:var(--mu);flex:1">Ask about recommendations, bundles, pricing…</span>
+        <button class="sendbtn" style="width:22px;height:22px" aria-label="Send"><i class="ti ti-arrow-right" aria-hidden="true" style="font-size:11px"></i></button>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div class="card">
+        <div class="ch"><span class="ctitle">Featured bundles</span><span class="cact">View all</span></div>
+        <div class="row"><div class="ic" style="background:var(--glt)"><i class="ti ti-run" aria-hidden="true" style="color:var(--g)"></i></div><div style="flex:1"><div class="rname">Marathon Starter Pack</div><div class="rsub">4 items · KES 45,700 · Save 23%</div></div><span class="tag tg">New</span></div>
+        <div class="row"><div class="ic" style="background:var(--pult)"><i class="ti ti-heart" aria-hidden="true" style="color:var(--pu)"></i></div><div style="flex:1"><div class="rname">Recovery Essentials</div><div class="rsub">3 items · KES 12,400 · Save 18%</div></div><span class="tag tp">Popular</span></div>
+        <div class="row"><div class="ic" style="background:var(--bllt)"><i class="ti ti-shoe" aria-hidden="true" style="color:var(--bl)"></i></div><div style="flex:1"><div class="rname">Trail Running Kit</div><div class="rsub">5 items · KES 38,200 · Save 15%</div></div><span class="tag tb">Trending</span></div>
+      </div>
+      <div class="card">
+        <div class="ch"><span class="ctitle">Memory-driven insights</span></div>
+        <div class="row"><div class="ic" style="background:var(--glt)"><i class="ti ti-trending-up" aria-hidden="true" style="color:var(--g)"></i></div><div><div class="rname">Users who remember marathon content buy 3.2× more</div><div class="rsub">Target this segment with bundle promotions.</div></div></div>
+        <div class="row"><div class="ic" style="background:var(--amlt)"><i class="ti ti-clock" aria-hidden="true" style="color:var(--am)"></i></div><div><div class="rname">Peak purchase intent: Thursday 6–8 PM</div><div class="rsub">Schedule bundle notifications for this window.</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="view" id="v-video">
+  <div class="greeting"><div><h1>Video studio</h1><p>Every video becomes searchable organizational memory.</p></div><button class="qab g"><i class="ti ti-upload" aria-hidden="true"></i> Upload video</button></div>
+  <div class="mrow c2">
+    <div class="card">
+      <div class="ch"><span class="ctitle">Processing — Q2 strategy meeting</span><span class="tag tg">Complete</span></div>
+      <div style="background:#1A1916;border-radius:7px;padding:12px;margin-bottom:10px;display:flex;align-items:center;justify-content:center;min-height:80px">
+        <div style="text-align:center"><i class="ti ti-player-play" aria-hidden="true" style="font-size:24px;color:rgba(255,255,255,.5)"></i><div style="font-size:10px;color:rgba(255,255,255,.3);margin-top:4px">00:42:17 · Q2 Product Strategy</div></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div style="display:flex;align-items:center;gap:8px;padding:7px;background:var(--glt);border-radius:6px"><i class="ti ti-check" aria-hidden="true" style="color:var(--g);font-size:13px"></i><div style="flex:1"><div style="font-size:11px;font-weight:500;color:var(--g)">Transcript generated</div><div style="font-size:10px;color:var(--g)">8,432 words · 98% accuracy</div></div></div>
+        <div style="display:flex;align-items:center;gap:8px;padding:7px;background:var(--glt);border-radius:6px"><i class="ti ti-check" aria-hidden="true" style="color:var(--g);font-size:13px"></i><div style="flex:1"><div style="font-size:11px;font-weight:500;color:var(--g)">6 chapters created</div></div></div>
+        <div style="display:flex;align-items:center;gap:8px;padding:7px;background:var(--glt);border-radius:6px"><i class="ti ti-check" aria-hidden="true" style="color:var(--g);font-size:13px"></i><div style="flex:1"><div style="font-size:11px;font-weight:500;color:var(--g)">4 decisions · 6 action items · 3 questions extracted</div></div></div>
+        <div style="display:flex;align-items:center;gap:8px;padding:7px;background:var(--pult);border-radius:6px"><i class="ti ti-sparkles" aria-hidden="true" style="color:var(--pu);font-size:13px"></i><div style="flex:1"><div style="font-size:11px;font-weight:500;color:var(--pu)">Training material generated from Q&amp;A segments</div></div></div>
+        <div style="display:flex;align-items:center;gap:8px;padding:7px;background:var(--amlt);border-radius:6px"><i class="ti ti-brain" aria-hidden="true" style="color:var(--am);font-size:13px"></i><div style="flex:1"><div style="font-size:11px;font-weight:500;color:var(--am)">Added to organizational memory graph</div></div></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div class="card">
+        <div class="ch"><span class="ctitle">Video library</span><span class="cact">View all</span></div>
+        <div class="vid-list">
+          <div class="vrow"><div class="vthumb"><i class="ti ti-video" aria-hidden="true"></i><div class="vdur">42:17</div></div><div><div class="rname">Q2 strategy meeting</div><div class="rsub">Today · 4 participants</div><div style="display:flex;gap:3px;margin-top:3px"><span class="tag tg" style="font-size:9px">4 decisions</span><span class="tag tp" style="font-size:9px">6 actions</span></div></div></div>
+          <div class="vrow"><div class="vthumb"><i class="ti ti-trending-up" aria-hidden="true"></i><div class="vdur">28:45</div></div><div><div class="rname">Sales training — objection handling</div><div class="rsub">May 18 · Kevin Mirera</div><div style="display:flex;gap:3px;margin-top:3px"><span class="tag ta" style="font-size:9px">Training</span></div></div></div>
+          <div class="vrow"><div class="vthumb"><i class="ti ti-users" aria-hidden="true"></i><div class="vdur">52:13</div></div><div><div class="rname">User research findings</div><div class="rsub">May 8 · 4 participants</div><div style="display:flex;gap:3px;margin-top:3px"><span class="tag tb" style="font-size:9px">Research</span></div></div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div style="font-size:11px;font-weight:500;color:var(--ink);margin-bottom:6px">Search video memory</div>
+        <div style="display:flex;gap:6px;align-items:center;background:var(--page);border:0.5px solid var(--br);border-radius:6px;padding:6px 8px;margin-bottom:8px">
+          <i class="ti ti-search" aria-hidden="true" style="color:var(--mu);font-size:13px"></i>
+          <span style="font-size:11px;color:var(--mu);flex:1">When did we discuss marketing pricing?</span>
+        </div>
+        <div style="background:var(--glt);border-radius:6px;padding:8px"><div style="font-size:11px;font-weight:500;color:var(--g);margin-bottom:3px"><i class="ti ti-player-play" aria-hidden="true"></i> Jump to 10:27 in Q2 strategy meeting</div><div style="font-size:10.5px;color:var(--g)">"We discussed delaying marketplace pricing until Q4 review…"</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="view" id="v-agents">
+  <div class="greeting"><div><h1>AI agents</h1><p>12 agents live · 1,248 conversations this month.</p></div><button class="qab g" onclick="show('studio')"><i class="ti ti-plus" aria-hidden="true"></i> New agent</button></div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px">
+    <div class="card"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><div class="ic" style="background:var(--glt)"><i class="ti ti-message-circle" aria-hidden="true" style="color:var(--g)"></i></div><div class="sdot"></div></div><div class="rname">Customer Support AI</div><div class="rsub">1,248 conversations · 94% satisfaction</div><div style="margin-top:6px;display:flex;gap:4px"><button class="abtn p">Open</button><button class="abtn">Analytics</button></div></div>
+    <div class="card"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><div class="ic" style="background:var(--pult)"><i class="ti ti-trending-up" aria-hidden="true" style="color:var(--pu)"></i></div><div class="sdot"></div></div><div class="rname">Sales Coach AI</div><div class="rsub">42 employees enrolled · 79% avg score</div><div style="margin-top:6px;display:flex;gap:4px"><button class="abtn pu">Open</button><button class="abtn">Analytics</button></div></div>
+    <div class="card"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><div class="ic" style="background:var(--bllt)"><i class="ti ti-users" aria-hidden="true" style="color:var(--bl)"></i></div><div class="sdot"></div></div><div class="rname">HR Assistant AI</div><div class="rsub">127 queries resolved this week</div><div style="margin-top:6px;display:flex;gap:4px"><button class="abtn" style="border-color:var(--bl);color:var(--bl)">Open</button><button class="abtn">Analytics</button></div></div>
+    <div class="card"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><div class="ic" style="background:var(--amlt)"><i class="ti ti-coin" aria-hidden="true" style="color:var(--am)"></i></div><div class="sdot"></div></div><div class="rname">Finance Tutor AI</div><div class="rsub">89 sessions · KES 2.3M in decisions guided</div><div style="margin-top:6px;display:flex;gap:4px"><button class="abtn">Open</button><button class="abtn">Analytics</button></div></div>
+    <div class="card"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><div class="ic" style="background:var(--colt)"><i class="ti ti-run" aria-hidden="true" style="color:var(--co)"></i></div><div class="sdot"></div></div><div class="rname">Running Coach AI</div><div class="rsub">234 athletes · 4.8/5 rating</div><div style="margin-top:6px;display:flex;gap:4px"><button class="abtn">Open</button><button class="abtn">Analytics</button></div></div>
+    <div class="card" style="border:1.5px dashed var(--br);background:var(--page);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;cursor:pointer" onclick="show('studio')"><i class="ti ti-plus" aria-hidden="true" style="font-size:20px;color:var(--mu);margin-bottom:6px"></i><div class="rname">Build new agent</div><div class="rsub">Use Agent Studio</div></div>
+  </div>
+  <div class="ai-bar">
+    <i class="ti ti-sparkles icon" aria-hidden="true"></i>
+    <span>Ask about your agents — "Which agent has the best satisfaction score?"</span>
+    <button class="sendbtn" aria-label="Send"><i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+  </div>
+</div>
+
+<div class="view" id="v-analytics">
+  <div class="greeting"><div><h1>Analytics</h1><p>Memory-first metrics for Historia Inc.</p></div><button class="qab g"><i class="ti ti-download" aria-hidden="true"></i> Export report</button></div>
+  <div class="mrow c4">
+    <div class="mc"><div class="mlabel">Productivity score</div><div class="mval">91 <span style="font-size:11px;font-weight:400;color:var(--g)">Excellent</span></div><div class="mtrend up"><i class="ti ti-trending-up" aria-hidden="true" style="font-size:10px"></i> 11% vs last week</div></div>
+    <div class="mc"><div class="mlabel">Focus score</div><div class="mval">88 <span style="font-size:11px;font-weight:400;color:var(--bl)">Very Good</span></div><div class="mtrend up"><i class="ti ti-trending-up" aria-hidden="true" style="font-size:10px"></i> 9% vs last week</div></div>
+    <div class="mc"><div class="mlabel">Work-related content</div><div class="mval">92% <span style="font-size:11px;font-weight:400;color:var(--g)">this week</span></div><div class="mtrend up"><i class="ti ti-trending-up" aria-hidden="true" style="font-size:10px"></i> 5% vs last week</div></div>
+    <div class="mc"><div class="mlabel">AI confidence avg</div><div class="mval">86% <span style="font-size:11px;font-weight:400;color:var(--am)">High</span></div><div class="mtrend up"><i class="ti ti-trending-up" aria-hidden="true" style="font-size:10px"></i> 6% vs last week</div></div>
+  </div>
+  <div class="mrow c2">
+    <div class="card">
+      <div class="ch"><span class="ctitle">Real-time employee activity</span><span style="font-size:10px;color:var(--g)">Live · 12 active</span></div>
+      <div style="overflow-x:auto"><table style="width:100%;font-size:11px;border-collapse:collapse">
+        <tr style="border-bottom:0.5px solid var(--br)"><td style="padding:5px 4px;color:var(--mu)">Employee</td><td style="padding:5px 4px;color:var(--mu)">Current activity</td><td style="padding:5px 4px;color:var(--mu)">Relevance</td><td style="padding:5px 4px;color:var(--mu)">Status</td></tr>
+        <tr style="border-bottom:0.5px solid var(--br)"><td style="padding:6px 4px"><div style="display:flex;align-items:center;gap:5px"><div class="av" style="width:20px;height:20px;font-size:9px">SW</div>Sarah W.</div></td><td style="padding:6px 4px;color:var(--ink)">Figma Design Systems</td><td style="padding:6px 4px"><span class="tag tg" style="font-size:9px">95%</span></td><td style="padding:6px 4px"><span style="font-size:10px;color:var(--g)">On task</span></td></tr>
+        <tr style="border-bottom:0.5px solid var(--br)"><td style="padding:6px 4px"><div style="display:flex;align-items:center;gap:5px"><div class="av" style="width:20px;height:20px;font-size:9px;background:var(--pult);color:var(--pu)">DO</div>David O.</div></td><td style="padding:6px 4px;color:var(--ink)">Vector Embeddings Guide</td><td style="padding:6px 4px"><span class="tag tg" style="font-size:9px">98%</span></td><td style="padding:6px 4px"><span style="font-size:10px;color:var(--g)">On task</span></td></tr>
+        <tr style="border-bottom:0.5px solid var(--br)"><td style="padding:6px 4px"><div style="display:flex;align-items:center;gap:5px"><div class="av" style="width:20px;height:20px;font-size:9px;background:var(--bllt);color:var(--bl)">EC</div>Emily C.</div></td><td style="padding:6px 4px;color:var(--ink)">React useEffect Docs</td><td style="padding:6px 4px"><span class="tag tg" style="font-size:9px">93%</span></td><td style="padding:6px 4px"><span style="font-size:10px;color:var(--g)">On task</span></td></tr>
+        <tr><td style="padding:6px 4px"><div style="display:flex;align-items:center;gap:5px"><div class="av" style="width:20px;height:20px;font-size:9px;background:var(--amlt);color:var(--am)">JM</div>James M.</div></td><td style="padding:6px 4px;color:var(--ink)">Celebrity Gossip News</td><td style="padding:6px 4px"><span class="tag tc" style="font-size:9px">8%</span></td><td style="padding:6px 4px"><span style="font-size:10px;color:var(--co)">Off task</span></td></tr>
+      </table></div>
+    </div>
+    <div class="card">
+      <div class="ch"><span class="ctitle">Learning and growth</span><span class="cact">Full report</span></div>
+      <div style="margin-bottom:8px">
+        <div class="metric-bar-row"><div class="metric-bar-label">Chrome extensions</div><div class="metric-bar-track"><div class="metric-bar-fill" style="width:87%;background:var(--g)"></div></div><div class="metric-bar-val">87%</div></div>
+        <div class="metric-bar-row"><div class="metric-bar-label">React</div><div class="metric-bar-track"><div class="metric-bar-fill" style="width:74%;background:var(--pu)"></div></div><div class="metric-bar-val">74%</div></div>
+        <div class="metric-bar-row"><div class="metric-bar-label">TypeScript</div><div class="metric-bar-track"><div class="metric-bar-fill" style="width:68%;background:var(--bl)"></div></div><div class="metric-bar-val">68%</div></div>
+        <div class="metric-bar-row"><div class="metric-bar-label">Vector databases</div><div class="metric-bar-track"><div class="metric-bar-fill" style="width:41%;background:var(--am)"></div></div><div class="metric-bar-val">41%</div></div>
+      </div>
+      <div style="font-size:11px;font-weight:500;color:var(--ink);margin-bottom:5px">AI insights</div>
+      <div class="row" style="padding:5px 0"><div class="ic" style="background:var(--glt)"><i class="ti ti-clock" aria-hidden="true" style="color:var(--g)"></i></div><div><div class="rname">Team is most productive 9–12 PM</div><div class="rsub">Protect this window for deep work.</div></div></div>
+      <div class="row" style="padding:5px 0;border:none"><div class="ic" style="background:var(--amlt)"><i class="ti ti-alert-triangle" aria-hidden="true" style="color:var(--am)"></i></div><div><div class="rname">3 team members spending time on low-relevance content</div><div class="rsub">Consider focus coaching.</div></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="view" id="v-memgraph">
+  <div class="greeting"><div><h1>Memory graph</h1><p>Everything your organization knows, connected.</p></div><button class="qab g"><i class="ti ti-search" aria-hidden="true"></i> Search graph</button></div>
+  <div class="mrow c3" style="margin-bottom:10px">
+    <div class="mc"><div class="mlabel">Total nodes</div><div class="mval" style="font-size:18px">2,847</div></div>
+    <div class="mc"><div class="mlabel">Connections</div><div class="mval" style="font-size:18px">8,421</div></div>
+    <div class="mc"><div class="mlabel">Graph strength</div><div class="mval" style="font-size:18px">94%</div><div class="mtrend up">Strong</div></div>
+  </div>
+  <div class="mrow c2">
+    <div class="card" style="min-height:240px">
+      <div class="ch"><span class="ctitle">Interactive memory graph</span><span class="cact">Expand</span></div>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px;padding:10px 0">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:4px;width:100%">
+          <div style="display:flex;gap:8px;justify-content:center">
+            <div style="background:var(--glt);border:0.5px solid rgba(15,110,86,.2);border-radius:6px;padding:5px 10px;font-size:10px;font-weight:500;color:var(--g)"><i class="ti ti-users" aria-hidden="true" style="font-size:10px"></i> Employees 48</div>
+            <div style="background:var(--bllt);border:0.5px solid rgba(24,95,165,.2);border-radius:6px;padding:5px 10px;font-size:10px;font-weight:500;color:var(--bl)"><i class="ti ti-video" aria-hidden="true" style="font-size:10px"></i> Meetings 327</div>
+          </div>
+          <div style="width:60px;height:1px;background:var(--br);margin:4px auto"></div>
+          <div style="display:flex;gap:8px;justify-content:center">
+            <div style="background:var(--pult);border:0.5px solid rgba(83,74,183,.2);border-radius:6px;padding:5px 10px;font-size:10px;font-weight:500;color:var(--pu)"><i class="ti ti-folder" aria-hidden="true" style="font-size:10px"></i> Projects 16</div>
+            <div style="background:var(--g);border-radius:8px;padding:7px 14px;font-size:11px;font-weight:500;color:#fff"><i class="ti ti-brain" aria-hidden="true" style="font-size:11px"></i> Memory Layer</div>
+            <div style="background:var(--amlt);border:0.5px solid rgba(133,79,11,.2);border-radius:6px;padding:5px 10px;font-size:10px;font-weight:500;color:var(--am)"><i class="ti ti-users-group" aria-hidden="true" style="font-size:10px"></i> Customers 84</div>
+          </div>
+          <div style="width:60px;height:1px;background:var(--br);margin:4px auto"></div>
+          <div style="display:flex;gap:8px;justify-content:center">
+            <div style="background:var(--colt);border:0.5px solid rgba(153,60,29,.2);border-radius:6px;padding:5px 10px;font-size:10px;font-weight:500;color:var(--co)"><i class="ti ti-book" aria-hidden="true" style="font-size:10px"></i> Knowledge 1,248</div>
+            <div style="background:var(--glt);border:0.5px solid rgba(15,110,86,.2);border-radius:6px;padding:5px 10px;font-size:10px;font-weight:500;color:var(--g)"><i class="ti ti-robot" aria-hidden="true" style="font-size:10px"></i> AI Agents 12</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch"><span class="ctitle">Ask the graph</span></div>
+      <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:10px">
+        <div style="background:var(--page);border-radius:6px;padding:8px 10px;font-size:11px;color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:space-between"><span>Show every meeting discussing Project Atlas</span><i class="ti ti-arrow-right" aria-hidden="true" style="font-size:12px;color:var(--mu)"></i></div>
+        <div style="background:var(--page);border-radius:6px;padding:8px 10px;font-size:11px;color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:space-between"><span>Who knows Kubernetes?</span><i class="ti ti-arrow-right" aria-hidden="true" style="font-size:12px;color:var(--mu)"></i></div>
+        <div style="background:var(--page);border-radius:6px;padding:8px 10px;font-size:11px;color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:space-between"><span>Which decisions affected the most employees?</span><i class="ti ti-arrow-right" aria-hidden="true" style="font-size:12px;color:var(--mu)"></i></div>
+        <div style="background:var(--glt);border-radius:6px;padding:8px 10px">
+          <div style="font-size:11px;font-weight:500;color:var(--g);margin-bottom:4px"><i class="ti ti-sparkles" aria-hidden="true"></i> Result: Project Atlas</div>
+          <div style="font-size:11px;color:var(--g)">6 meetings · 3 decisions · 12 action items · 4 team members involved · Last discussed May 20</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:6px;align-items:center;background:var(--page);border:0.5px solid var(--br);border-radius:6px;padding:6px 8px">
+        <span style="font-size:11px;color:var(--mu);flex:1">Ask anything about your organization…</span>
+        <button class="sendbtn" style="width:22px;height:22px" aria-label="Send"><i class="ti ti-arrow-right" aria-hidden="true" style="font-size:11px"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+
+<script>
+function show(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('show'));
+  var el=document.getElementById('v-'+id);
+  if(el)el.classList.add('show');
+  document.querySelectorAll('.ni').forEach(n=>n.classList.remove('act'));
+  var map={dashboard:0,agents:1,studio:2,knowledge:3,customers:4,website:5,marketplace:6,video:7,meetings:8,sales:9,analytics:10,memgraph:11};
+  var idx=map[id];
+  if(idx!==undefined){
+    var items=document.querySelectorAll('.ni');
+    var count=0;
+    items.forEach(function(item){
+      if(item.getAttribute('onclick')&&item.getAttribute('onclick').includes("'"+id+"'")){
+        item.classList.add('act');
+      }
+    });
+  }
+  var searches={dashboard:'Search memories, people, projects…',agents:'Search agents…',studio:'Search agent templates…',knowledge:'Search knowledge base…',customers:'Search customers…',website:'Search pages, memory scores…',marketplace:'Search products, bundles…',video:'Search video library…',meetings:'Search meeting memories…',sales:'Search sales calls…',analytics:'Search analytics…',memgraph:'Search memory graph…'};
+  var ph=document.getElementById('search-placeholder');
+  if(ph&&searches[id])ph.textContent=searches[id];
+}
+document.querySelectorAll('.ni').forEach(function(item){
+  item.addEventListener('click',function(){
+    document.querySelectorAll('.ni').forEach(function(n){n.classList.remove('act')});
+    item.classList.add('act');
+  });
+});
+</script>
